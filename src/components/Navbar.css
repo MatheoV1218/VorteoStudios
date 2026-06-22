@@ -1,0 +1,75 @@
+/* src/components/Navbar.css */
+.navbar {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1120px, calc(100% - 28px));
+  z-index: 1000;
+  padding: 14px 18px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(120, 139, 255, 0.22);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 18px 60px rgba(86, 99, 255, 0.12);
+}
+
+.nav-logo {
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: #111827;
+}
+
+.nav-logo span {
+  color: #7c3aed;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  color: #4b5563;
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.nav-links a {
+  transition: 0.25s ease;
+}
+
+.nav-links a:hover {
+  color: #2563eb;
+}
+
+.nav-button {
+  padding: 11px 18px;
+  border-radius: 999px;
+  color: white;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2563eb, #8b5cf6);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.25);
+  transition: 0.25s ease;
+}
+
+.nav-button:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 760px) {
+  .nav-links {
+    display: none;
+  }
+
+  .navbar {
+    top: 12px;
+  }
+
+  .nav-button {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+}
