@@ -1,29 +1,61 @@
-/* src/components/SectionTitle.css */
-.section-title {
-  max-width: 720px;
-  margin-bottom: 38px;
+.section-title-wrap {
+  margin-bottom: 64px;
 }
 
-.section-title span {
+.section-eyebrow {
   display: inline-flex;
-  margin-bottom: 12px;
-  color: #2563eb;
-  font-weight: 900;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
+  color: var(--cyan);
+  margin-bottom: 16px;
 }
 
-.section-title h2 {
-  color: #111827;
-  font-size: clamp(2.25rem, 4.8vw, 4.4rem);
-  letter-spacing: -0.075em;
-  line-height: 0.98;
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--cyan);
 }
 
-.section-title p {
-  margin-top: 18px;
-  color: #4b5563;
-  line-height: 1.75;
-  font-size: 1.08rem;
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--white);
+}
+
+.section-heading .accent {
+  color: var(--violet-light);
+}
+
+.section-sub {
+  margin-top: 16px;
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+.section-title-wrap.centered {
+  text-align: center;
+}
+
+.section-title-wrap.centered .section-eyebrow {
+  justify-content: center;
+}
+
+.section-title-wrap.centered .section-eyebrow::before {
+  display: none;
+}
+
+.section-title-wrap.centered .section-sub {
+  margin-left: auto;
+  margin-right: auto;
 }

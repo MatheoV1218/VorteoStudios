@@ -1,106 +1,128 @@
-/* src/components/ProjectCard.css */
 .project-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
   overflow: hidden;
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(37, 99, 235, 0.16);
-  backdrop-filter: blur(22px);
-  box-shadow: 0 24px 70px rgba(37, 99, 235, 0.1);
-  transition: 0.28s ease;
+  backdrop-filter: blur(12px);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  cursor: none;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-color, var(--violet)), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
 .project-card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 30px 90px rgba(124, 58, 237, 0.16);
+  transform: translateY(-6px);
+  border-color: rgba(124, 58, 237, 0.45);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(124, 58, 237, 0.1);
 }
 
-.project-preview {
-  min-height: 220px;
-  padding: 18px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.22), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(139, 92, 246, 0.22), transparent 35%),
-    linear-gradient(135deg, #ffffff, #eef3ff);
+.project-card:hover::before {
+  opacity: 1;
 }
 
-.preview-bar {
-  display: flex;
-  gap: 7px;
-  margin-bottom: 36px;
-}
-
-.preview-bar span {
-  width: 10px;
-  height: 10px;
+.card-glow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  background: #9ca3af;
+  opacity: 0;
+  filter: blur(60px);
+  transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
-.preview-content {
-  padding: 24px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(18px);
+.project-card:hover .card-glow {
+  opacity: 0.25;
 }
 
-.preview-content h3 {
-  color: #111827;
-  font-size: 1.5rem;
-  letter-spacing: -0.05em;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.preview-content p {
-  color: #2563eb;
-  font-weight: 800;
-  margin-top: 8px;
-}
-
-.project-content {
-  padding: 26px;
-}
-
-.project-category {
-  color: #2563eb;
-  font-size: 0.78rem;
+.card-category {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-weight: 900;
+  color: var(--muted);
 }
 
-.project-content h3 {
-  margin-top: 10px;
-  color: #111827;
-  font-size: 1.55rem;
+.card-year {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
 }
 
-.project-description {
-  margin-top: 12px;
-  color: #4b5563;
-  line-height: 1.65;
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  line-height: 1.2;
+  transition: color 0.2s ease;
 }
 
-.project-tech {
+.project-card:hover .card-title {
+  color: var(--white);
+}
+
+.card-description {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
-  margin: 22px 0;
+  gap: 8px;
 }
 
-.project-tech span {
-  padding: 8px 11px;
-  border-radius: 999px;
-  color: #374151;
-  font-size: 0.78rem;
-  font-weight: 700;
-  background: #eef2ff;
+.card-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(124, 58, 237, 0.12);
+  color: var(--violet-light);
+  border: 1px solid rgba(124, 58, 237, 0.2);
 }
 
-.project-content a {
-  display: inline-flex;
-  padding: 12px 17px;
-  border-radius: 999px;
-  color: white;
-  background: linear-gradient(135deg, #2563eb, #8b5cf6);
-  font-weight: 900;
+.card-arrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: color 0.2s ease, gap 0.2s ease;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project-card:hover .card-arrow {
+  color: var(--cyan);
+  gap: 12px;
 }

@@ -1,55 +1,56 @@
-/* src/components/Footer.css */
 .footer {
-  width: min(1120px, calc(100% - 32px));
-  margin: 40px auto 28px;
-  padding: 34px;
-  border-radius: 34px;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(37, 99, 235, 0.16);
-  backdrop-filter: blur(22px);
-  box-shadow: 0 24px 70px rgba(37, 99, 235, 0.1);
+  background: var(--void);
+  border-top: 1px solid var(--border);
+  padding: 48px;
 }
 
-.footer h2 {
-  color: #111827;
-  font-size: 2rem;
-  letter-spacing: -0.06em;
-}
-
-.footer p {
-  margin-top: 10px;
-  color: #4b5563;
-  max-width: 560px;
-  line-height: 1.7;
-}
-
-.footer-socials {
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 24px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
 }
 
-.footer-socials a {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: #111827;
-  font-size: 1.25rem;
-  background: #eef2ff;
-  border: 1px solid rgba(37, 99, 235, 0.12);
-  transition: 0.25s ease;
+.footer-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
 }
 
-.footer-socials a:hover {
-  color: white;
-  transform: translateY(-3px);
-  background: linear-gradient(135deg, #2563eb, #8b5cf6);
+.footer-logo span {
+  color: var(--cyan);
 }
 
 .footer-copy {
-  margin-top: 28px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 0.8rem;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--white);
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 32px 24px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
 }
