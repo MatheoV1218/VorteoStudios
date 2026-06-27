@@ -17,7 +17,7 @@ export default function ContactForm() {
     setTimeout(() => {
       setSending(false)
       setSent(true)
-    }, 1800)
+    }, 1200)
   }
 
   return (
@@ -26,23 +26,23 @@ export default function ContactForm() {
         <div className="contact-info">
           <SectionTitle
             eyebrow="Get In Touch"
-            heading="Let's build something remarkable"
-            accentWord="remarkable"
+            heading="Have a website idea? Let's make it real"
+            accentWord="make it real"
           />
           <div className="contact-detail">
             <div className="contact-item">
               <span className="contact-item-label">Email</span>
               <span className="contact-item-value">
-                <a href="mailto:hello@vorteo.studio">hello@vorteo.studio</a>
+                <a href="mailto:mateovillada1@outlook.com">mateovillada1@outlook.com</a>
               </span>
             </div>
             <div className="contact-item">
               <span className="contact-item-label">Based In</span>
-              <span className="contact-item-value">Remote — Worldwide</span>
+              <span className="contact-item-value">White Plains, NY — Remote Friendly</span>
             </div>
             <div className="contact-item">
-              <span className="contact-item-label">Response Time</span>
-              <span className="contact-item-value">Within 24 hours</span>
+              <span className="contact-item-label">Best Fit</span>
+              <span className="contact-item-value">Small businesses, startups, gyms, creators, and service brands</span>
             </div>
           </div>
           <div className="contact-availability">
@@ -51,10 +51,10 @@ export default function ContactForm() {
           </div>
         </div>
 
-        <div className="contact-form">
+        <form className="contact-form">
           {sent ? (
             <div className="submit-success">
-              ✓ Message sent! I'll be in touch within 24 hours.
+              ✓ Message received. I will get back to you soon.
             </div>
           ) : (
             <>
@@ -83,13 +83,14 @@ export default function ContactForm() {
                 </div>
               </div>
               <div className="form-field">
-                <label htmlFor="budget">Project Budget</label>
+                <label htmlFor="budget">Project Type</label>
                 <select id="budget" name="budget" value={form.budget} onChange={handleChange}>
-                  <option value="" disabled>Select a range</option>
-                  <option>$2,000 – $5,000</option>
-                  <option>$5,000 – $10,000</option>
-                  <option>$10,000 – $25,000</option>
-                  <option>$25,000+</option>
+                  <option value="" disabled>Select one</option>
+                  <option>New website</option>
+                  <option>Website redesign</option>
+                  <option>Landing page</option>
+                  <option>React web app</option>
+                  <option>Not sure yet</option>
                 </select>
               </div>
               <div className="form-field">
@@ -97,7 +98,7 @@ export default function ContactForm() {
                 <textarea
                   id="message"
                   name="message"
-                  placeholder="What are you building? What problem does it solve? What makes it special?"
+                  placeholder="What do you need built? What does your business do? What is the main goal of the website?"
                   value={form.message}
                   onChange={handleChange}
                 />
@@ -112,7 +113,7 @@ export default function ContactForm() {
               </button>
             </>
           )}
-        </div>
+        </form>
       </div>
     </section>
   )

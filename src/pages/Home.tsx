@@ -7,98 +7,46 @@ import './Home.css'
 
 const services = [
   {
-    name: 'Web Design & Development',
-    desc: 'Pixel-perfect, performant websites built in React and Next.js — from bold marketing sites to complex web apps.',
-    items: ['React / Next.js', 'TypeScript', 'Custom Animations', 'CMS Integration'],
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <rect x="2" y="3" width="16" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M7 17h6M10 15v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M5 8l2.5 2L5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M10 12h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    name: 'Modern Business Websites',
+    desc: 'Clean, fast websites that make your business look trustworthy and professional the second someone lands on the page.',
+    items: ['Landing pages', 'Full websites', 'Mobile-first layouts', 'Clear calls to action'],
   },
   {
-    name: 'Brand & Visual Identity',
-    desc: 'Strategic design systems — logos, palettes, typography — that give your business a voice it can own.',
-    items: ['Logo Design', 'Design Systems', 'Style Guides', 'UI Component Kits'],
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="10" cy="10" r="3" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M10 3v4M10 13v4M3 10h4M13 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    name: 'Website Redesigns',
+    desc: 'I take outdated, cluttered, or slow websites and rebuild them into something polished, organized, and easier for customers to use.',
+    items: ['Better layout', 'Stronger visuals', 'Cleaner content flow', 'Faster loading'],
   },
   {
-    name: 'E-Commerce & SaaS',
-    desc: 'Revenue-first builds — high-converting storefronts and SaaS dashboards that turn visitors into customers.',
-    items: ['Shopify / Stripe', 'User Auth', 'Dashboards', 'Subscription Flows'],
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M3 5h14l-1.5 7H4.5L3 5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <circle cx="7" cy="16" r="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="13" cy="16" r="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M1 2h2l.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    name: 'React Front-End Builds',
+    desc: 'Custom React websites built with reusable components, organized code, smooth interactions, and room to grow over time.',
+    items: ['React', 'TypeScript', 'Vite', 'Component structure'],
   },
   {
-    name: 'Performance & SEO',
-    desc: 'Speed and search rankings that compound over time. Every build is optimised for Core Web Vitals and discoverability.',
-    items: ['Lighthouse Audit', 'On-Page SEO', 'Schema Markup', 'CDN / Hosting'],
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M13 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M10 6v4l3 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    name: 'Booking & Contact Flows',
+    desc: 'Simple user flows that help visitors take action, whether that means booking a class, sending a message, or learning about a service.',
+    items: ['Contact forms', 'Booking links', 'CTA sections', 'Lead-focused pages'],
   },
   {
-    name: 'Animation & Motion',
-    desc: 'Interfaces that move with purpose. Scroll-triggered reveals, micro-interactions, and 3D — without the bloat.',
-    items: ['Framer Motion', 'GSAP', 'Three.js', 'CSS Keyframes'],
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M4 10c0-3.31 2.69-6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M16 10c0 3.31-2.69 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="10" cy="10" r="2" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M7 4l3-2 3 2M7 16l3 2 3-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    name: 'Responsive Design',
+    desc: 'Every section is built to look good on phones, tablets, laptops, and desktops because most customers will check your site from their phone first.',
+    items: ['Mobile menus', 'Flexible grids', 'Touch-friendly buttons', 'Clean spacing'],
   },
   {
-    name: 'Maintenance & Growth',
-    desc: 'Monthly retainers for teams that need a reliable partner — updates, analytics, A/B tests, and new features.',
-    items: ['Monthly Retainers', 'Analytics Setup', 'A/B Testing', 'Ongoing Support'],
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M10 2v4M10 14v4M2 10h4M14 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="10" cy="10" r="3" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M4.93 4.93l2.83 2.83M12.24 12.24l2.83 2.83M4.93 15.07l2.83-2.83M12.24 7.76l2.83-2.83" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    name: 'Launch Support',
+    desc: 'I can help get the site live, connect the domain, clean up final details, and make sure the finished product feels ready for real visitors.',
+    items: ['Vercel hosting', 'Domain setup', 'Final testing', 'Basic SEO setup'],
   },
 ]
 
 const processSteps = [
-  { num: '01', title: 'Discovery Call', desc: 'We get on a call to understand your goals, audience, and what success looks like. I ask the right questions so nothing gets built on assumptions.', duration: '30 min' },
-  { num: '02', title: 'Strategy & Proposal', desc: 'I map out the scope, timeline, and technical approach — then send a clear proposal with milestones and fixed pricing. No surprise invoices.', duration: '2–3 days' },
-  { num: '03', title: 'Design & Prototype', desc: 'High-fidelity Figma designs built around your brand. You see exactly what gets built before a line of code is written. Revisions are part of the process.', duration: '1–2 weeks' },
-  { num: '04', title: 'Build & Test', desc: 'Development in React / Next.js with TypeScript. Every component is tested across browsers, screen sizes, and connection speeds.', duration: '2–4 weeks' },
-  { num: '05', title: 'Launch & Handover', desc: 'Deployed to production with full documentation. You get training, source code, and everything you need to run it independently — or I stay on as your tech partner.', duration: '2–3 days' },
+  { num: '01', title: 'Understand the business', desc: 'We start by getting clear on the business, the audience, the goal of the website, and what the visitor should do next.' },
+  { num: '02', title: 'Plan the structure', desc: 'I map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts.' },
+  { num: '03', title: 'Design the experience', desc: 'The visual direction comes together with colors, spacing, typography, layout, and a style that actually fits the brand.' },
+  { num: '04', title: 'Build the website', desc: 'I turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later.' },
+  { num: '05', title: 'Launch and polish', desc: 'Before launch, I test the site across screen sizes, clean up small details, connect the important links, and help get it live.' },
 ]
 
-const testimonials = [
-  { quote: "Matheo took a vague brief and turned it into the best-performing page we've ever launched. Revenue from that page is up 210% in 3 months.", name: 'Sofia Reyes', role: 'CEO, Lumière Studio', init: 'SR' },
-  { quote: "The attention to detail is insane. Every animation, every hover state — it all felt intentional. Our users kept asking who built the site.", name: 'Jordan Kim', role: 'Founder, Apex Training', init: 'JK' },
-  { quote: "Fast, communicative, and the end product exceeded what we imagined. VorTeo is the only studio I'll work with going forward.", name: 'Marcus Osei', role: 'CPO, PulseMetrics', init: 'MO' },
-  { quote: "We went from zero online presence to ranking on page one in our city within 60 days of launch. The SEO work alone paid for the project 10x over.", name: 'Camille Duval', role: 'Director, Solis Architecture', init: 'CD' },
-]
-
-const marqueeItems = ['React', 'TypeScript', 'Next.js', 'Node.js', 'Figma', 'Framer Motion', 'GSAP', 'Three.js', 'PostgreSQL', 'Stripe', 'Supabase', 'Tailwind CSS']
+const marqueeItems = ['React', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Vite', 'React Router', 'Supabase', 'Vercel', 'GitHub', 'Responsive Design', 'FormSubmit', 'SEO Basics', 'Component Design']
 
 function useScrollReveal(className = 'visible') {
   const refs = useRef<(HTMLElement | null)[]>([])
@@ -117,19 +65,18 @@ function useScrollReveal(className = 'visible') {
 }
 
 export default function Home() {
-  const projectRef = useScrollReveal()
   const serviceRef = useScrollReveal()
   const processRef = useScrollReveal()
   const aboutRef = useScrollReveal()
 
   return (
     <>
-      {/* ── HERO ── */}
       <section className="hero" id="hero">
         <div className="hero-bg">
           <div className="hero-grid" />
-          <div className="hero-orb-1" />
-          <div className="hero-orb-2" />
+          <div className="hero-orb hero-orb-1" />
+          <div className="hero-orb hero-orb-2" />
+          <div className="hero-shape" />
         </div>
 
         <div className="hero-content">
@@ -140,56 +87,52 @@ export default function Home() {
             </div>
 
             <h1 className="hero-title">
-              Websites that
-              <span className="line-2">demand attention.</span>
-              <span className="line-3">VorTeo Studio — Built for businesses that are serious about growth.</span>
+              Websites that feel
+              <span className="line-2">clean, sharp, and built to grow.</span>
             </h1>
 
             <p className="hero-sub">
-              I build fast, beautiful, conversion-driven websites for brands that refuse to be ignored.
-              From bold marketing sites to full-stack web apps — every project is crafted to perform.
+              I build modern websites for small businesses, creators, and local brands that need a stronger online presence. Clean design, responsive layouts, and clear sections that help people understand what you do and take action.
             </p>
 
             <div className="hero-actions">
-              <a href="#contact">
-                <button className="btn-primary">
-                  Start a Project
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
+              <a href="#contact" className="btn-primary">
+                Start a Project
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </a>
-              <a href="#work">
-                <button className="btn-secondary">View My Work</button>
-              </a>
+              <a href="#work" className="btn-secondary">View My Work</a>
             </div>
           </div>
 
-          <div className="hero-stats">
-            {[
-              { num: '40+', label: 'Projects Delivered' },
-              { num: '98%', label: 'Client Satisfaction' },
-              { num: '3×', label: 'Avg. Conversion Lift' },
-            ].map(s => (
-              <div key={s.label} className="hero-stat">
-                <div className="stat-number">{s.num}</div>
-                <div className="stat-label">{s.label}</div>
+          <div className="hero-preview" aria-hidden="true">
+            <div className="preview-window">
+              <div className="preview-topbar">
+                <span />
+                <span />
+                <span />
               </div>
-            ))}
+              <div className="preview-hero-card">
+                <div className="preview-pill">Responsive Build</div>
+                <div className="preview-title">Business website</div>
+                <div className="preview-text" />
+                <div className="preview-text short" />
+              </div>
+              <div className="preview-grid-cards">
+                <div />
+                <div />
+                <div />
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="hero-scroll-hint">
-          <div className="scroll-line" />
-          <span className="scroll-label">Scroll</span>
         </div>
       </section>
 
-      {/* ── MARQUEE ── */}
-      <div className="marquee-section">
+      <div className="marquee-section" aria-label="Tools and skills">
         <div className="marquee-track">
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <div key={i} className="marquee-item">
+          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => (
+            <div key={`${item}-${i}`} className="marquee-item">
               <span className="dot" />
               {item}
             </div>
@@ -197,176 +140,134 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── WORK ── */}
-      <section id="work">
-        <div className="work-section">
+      <section id="work" className="work-section">
+        <div className="work-heading-row">
           <SectionTitle
             eyebrow="Selected Work"
-            heading="Projects that moved the needle"
-            accentWord="moved the needle"
-            sub="A cross-section of recent work — each built to solve a real business problem."
+            heading="A project showcase that feels worth scrolling"
+            accentWord="worth scrolling"
+            sub="Swipe or scroll sideways through recent builds and concepts. Each one focuses on making the business look better, clearer, and easier to trust online."
           />
-          <div className="projects-grid">
-            {projects.map((project, i) => (
-              <div
-                key={project.id}
-                className="project-card-wrap"
-                ref={projectRef(i)}
-                style={{ transitionDelay: `${(i % 3) * 0.1}s` }}
-              >
-                <ProjectCard project={project} />
-              </div>
-            ))}
-          </div>
+          <div className="work-hint">Scroll sideways →</div>
+        </div>
+
+        <div className="projects-showcase" tabIndex={0} aria-label="Horizontal project showcase">
+          {projects.map((project, i) => (
+            <ProjectCard key={project.id} project={project} index={i} />
+          ))}
         </div>
       </section>
 
-      {/* ── SERVICES ── */}
       <section id="services" className="services-section">
         <div className="services-inner">
           <SectionTitle
             eyebrow="What I Do"
-            heading="Every service, one standard"
-            accentWord="one standard"
-            sub="I work across the full stack of digital — strategy, design, development, and growth."
+            heading="Websites that help businesses look legit online"
+            accentWord="look legit online"
+            sub="My focus is simple: make the business easier to understand, easier to trust, and easier to contact."
           />
+
           <div className="services-grid">
-            {services.map((s, i) => (
-              <div
-                key={s.name}
+            {services.map((service, i) => (
+              <article
+                key={service.name}
                 className="service-card"
-                ref={serviceRef(i) as (el: HTMLDivElement | null) => void}
-                style={{ transitionDelay: `${(i % 3) * 0.1}s` }}
+                ref={serviceRef(i) as (el: HTMLElement | null) => void}
+                style={{ transitionDelay: `${(i % 3) * 0.08}s` }}
               >
-                <div className="service-icon">{s.icon}</div>
-                <h3 className="service-name">{s.name}</h3>
-                <p className="service-desc">{s.desc}</p>
+                <div className="service-number">{String(i + 1).padStart(2, '0')}</div>
+                <h3 className="service-name">{service.name}</h3>
+                <p className="service-desc">{service.desc}</p>
                 <ul className="service-list">
-                  {s.items.map(item => <li key={item}>{item}</li>)}
+                  {service.items.map(item => <li key={item}>{item}</li>)}
                 </ul>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── ABOUT ── */}
-      <section id="about">
-        <div className="about-section">
-          <div
-            className="about-visual"
-            ref={aboutRef(0) as (el: HTMLDivElement | null) => void}
-          >
-            <div className="about-card about-card-main">
-              <div className="about-vmark">
-                <svg viewBox="0 0 80 80" fill="none">
-                  <polygon points="40,4 76,72 4,72" fill="none" stroke="white" strokeWidth="3" />
-                </svg>
-              </div>
-              <div>
-                <div className="name">Matheo Villada</div>
-                <div className="role">Web Developer & Designer</div>
-              </div>
-            </div>
-            <div className="about-card about-card-years">
-              <div className="years-number">5+</div>
-              <div className="years-label">Years<br />Building</div>
-            </div>
-            <div className="about-card about-card-skills">
-              {['React', 'Next.js', 'TypeScript', 'Figma', 'Node.js', 'GSAP'].map(s => (
-                <span key={s} className="skill-pill">{s}</span>
-              ))}
+      <section id="about" className="about-section">
+        <div
+          className="about-visual"
+          ref={aboutRef(0) as (el: HTMLDivElement | null) => void}
+        >
+          <div className="about-card about-card-main">
+            <div className="about-vmark">VT</div>
+            <div>
+              <div className="name">Matheo Villada</div>
+              <div className="role">Web Developer & Designer</div>
             </div>
           </div>
+          <div className="about-card about-card-focus">
+            <span>Focus</span>
+            <strong>Clean websites for real businesses</strong>
+          </div>
+          <div className="about-card about-card-skills">
+            {['React', 'TypeScript', 'CSS', 'Vite', 'Supabase', 'Vercel'].map(s => (
+              <span key={s} className="skill-pill">{s}</span>
+            ))}
+          </div>
+        </div>
 
-          <div
-            className="about-text"
-            ref={aboutRef(1) as (el: HTMLDivElement | null) => void}
-          >
-            <SectionTitle
-              eyebrow="About Me"
-              heading="The developer behind VorTeo"
-              accentWord="VorTeo"
-            />
-            <div className="about-body">
-              <p>
-                I'm <strong>Matheo Villada</strong>, a full-stack web developer and designer who started building websites because I was obsessed with the idea that a great digital product could change a business overnight.
-              </p>
-              <p>
-                Five years later, that obsession hasn't faded. I work directly with founders, creative directors, and growth teams to ship websites that are <strong>genuinely different</strong> — not just visually, but structurally: faster, more intentional, more effective at turning visitors into customers.
-              </p>
-              <p>
-                VorTeo is the studio I built to do that at a higher level. Small by design, focused by choice — every project gets my full attention, from the first call to the final deploy.
-              </p>
-            </div>
-            <div className="about-tech">
-              <div className="tech-label">Core Stack</div>
-              <div className="tech-chips">
-                {['React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Figma', 'GSAP', 'Three.js', 'Framer Motion', 'Stripe'].map(t => (
-                  <span key={t} className="tech-chip">{t}</span>
-                ))}
-              </div>
+        <div
+          className="about-text"
+          ref={aboutRef(1) as (el: HTMLDivElement | null) => void}
+        >
+          <SectionTitle
+            eyebrow="About Me"
+            heading="The person building behind VorTeo"
+            accentWord="VorTeo"
+          />
+          <div className="about-body">
+            <p>
+              I'm <strong>Matheo Villada</strong>, a web developer and designer focused on helping businesses improve how they show up online.
+            </p>
+            <p>
+              I like building websites that feel modern without being confusing. The goal is not just to make something look cool. The goal is to make the business easier to understand, easier to trust, and easier to contact.
+            </p>
+            <p>
+              VorTeo is the studio brand I am building around that idea: clean websites, strong visuals, responsive layouts, and a process that keeps things clear from start to launch.
+            </p>
+          </div>
+          <div className="about-tech">
+            <div className="tech-label">Current Stack</div>
+            <div className="tech-chips">
+              {['React', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Vite', 'React Router', 'Supabase', 'Vercel', 'GitHub'].map(t => (
+                <span key={t} className="tech-chip">{t}</span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── PROCESS ── */}
       <section id="process" className="process-section">
         <div className="process-inner">
           <SectionTitle
             eyebrow="How It Works"
-            heading="A process built for clarity"
-            accentWord="clarity"
-            sub="No ambiguity, no scope creep — just a clear path from idea to launch."
+            heading="A clear path from idea to launch"
+            accentWord="idea to launch"
+            sub="Every project is different, so I keep the steps simple and flexible instead of forcing every client into the same timeline."
           />
           <div className="process-steps">
             {processSteps.map((step, i) => (
-              <div
+              <article
                 key={step.num}
                 className="process-step"
-                ref={processRef(i) as (el: HTMLDivElement | null) => void}
+                ref={processRef(i) as (el: HTMLElement | null) => void}
                 style={{ transitionDelay: `${i * 0.08}s` }}
               >
                 <div className="step-number">{step.num}</div>
                 <div className="step-content">
-                  <div className="step-title">{step.title}</div>
+                  <h3 className="step-title">{step.title}</h3>
                   <p className="step-desc">{step.desc}</p>
-                  <div className="step-duration">{step.duration}</div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      <section className="testimonials-section">
-        <div className="testimonials-inner">
-          <SectionTitle
-            eyebrow="What Clients Say"
-            heading="The work speaks, but they speak louder"
-            accentWord="they speak louder"
-          />
-          <div className="testimonials-track">
-            {testimonials.map((t, i) => (
-              <div key={i} className="testimonial-card">
-                <div className="testi-stars">★★★★★</div>
-                <p className="testi-quote">{t.quote}</p>
-                <div className="testi-author">
-                  <div className="testi-avatar">{t.init}</div>
-                  <div>
-                    <div className="testi-name">{t.name}</div>
-                    <div className="testi-role">{t.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CONTACT ── */}
       <ContactForm />
     </>
   )
