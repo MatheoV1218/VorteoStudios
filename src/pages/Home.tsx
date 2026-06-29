@@ -1,4 +1,3 @@
-import ProjectCard from "../components/ProjectCard";
 import SectionTitle from "../components/SectionTitle";
 import ContactForm from "../components/ContactForm";
 import { projects } from "../data/projects";
@@ -171,26 +170,134 @@ export default function Home() {
         </div>
       </div>
 
-      <section id="work" className="work-section">
-        <div className="work-heading-row">
+      <section id="work" className="project-cinema-section">
+        <div className="project-cinema-heading">
           <SectionTitle
             eyebrow="Selected Work"
-            heading="A project showcase that feels worth scrolling"
-            accentWord="worth scrolling"
-            sub="Swipe or scroll sideways through recent builds and concepts. Each project opens into a full page where you can add more details, screenshots, and links."
+            heading="A cinematic showcase of recent projects"
+            accentWord="recent projects"
+            sub="Scroll through the reel, pause on a project, and click into the full case study."
           />
-
-          <div className="work-hint">Scroll sideways →</div>
         </div>
 
-        <div
-          className="projects-showcase"
-          tabIndex={0}
-          aria-label="Horizontal project showcase"
-        >
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
-          ))}
+        <div className="project-cinema-frame">
+          <div className="project-cinema-glow" />
+
+          <div
+            className="project-cinema-scroller"
+            aria-label="Project showcase"
+            onPointerEnter={(e) => {
+              e.currentTarget.classList.add("is-user-control");
+            }}
+            onPointerLeave={(e) => {
+              e.currentTarget.classList.remove("is-user-control");
+            }}
+            onPointerDown={(e) => {
+              const slider = e.currentTarget;
+              slider.classList.add("is-dragging");
+              slider.setPointerCapture(e.pointerId);
+
+              let startX = e.clientX;
+              let startScroll = slider.scrollLeft;
+              let velocity = 0;
+              let lastX = e.clientX;
+              let lastTime = performance.now();
+              let frame = 0;
+
+              const track = slider.querySelector(
+                ".project-cinema-track",
+              ) as HTMLElement;
+              const halfway = track.scrollWidth / 2;
+
+              const keepInfinite = () => {
+                if (slider.scrollLeft >= halfway) {
+                  slider.scrollLeft -= halfway;
+                }
+
+                if (slider.scrollLeft <= 0) {
+                  slider.scrollLeft += halfway;
+                }
+              };
+
+              const onPointerMove = (moveEvent: PointerEvent) => {
+                const now = performance.now();
+                const currentX = moveEvent.clientX;
+                const dx = currentX - startX;
+
+                slider.scrollLeft = startScroll - dx;
+                keepInfinite();
+
+                const dt = now - lastTime;
+                if (dt > 0) {
+                  velocity = (lastX - currentX) / dt;
+                }
+
+                lastX = currentX;
+                lastTime = now;
+              };
+
+              const momentum = () => {
+                slider.scrollLeft += velocity * 18;
+                velocity *= 0.94;
+                keepInfinite();
+
+                if (Math.abs(velocity) > 0.02) {
+                  frame = requestAnimationFrame(momentum);
+                }
+              };
+
+              const stopDragging = () => {
+                slider.classList.remove("is-dragging");
+                slider.releasePointerCapture(e.pointerId);
+
+                window.removeEventListener("pointermove", onPointerMove);
+                window.removeEventListener("pointerup", stopDragging);
+                window.removeEventListener("pointercancel", stopDragging);
+
+                cancelAnimationFrame(frame);
+                frame = requestAnimationFrame(momentum);
+              };
+
+              window.addEventListener("pointermove", onPointerMove);
+              window.addEventListener("pointerup", stopDragging);
+              window.addEventListener("pointercancel", stopDragging);
+            }}
+          >
+            <div className="project-cinema-track">
+              {[...projects, ...projects, ...projects, ...projects].map(
+                (project, i) => (
+                  <a
+                    href={`/projects/${project.slug}`}
+                    key={`${project.id}-${i}`}
+                    className="cinema-project-card"
+                    style={{ ["--project-color" as string]: project.color }}
+                    aria-label={`View ${project.title} project`}
+                  >
+                    <div className="cinema-project-image">
+                      <img
+                        src={project.image}
+                        alt={`${project.title} preview`}
+                      />
+                    </div>
+
+                    <div className="cinema-project-content">
+                      <div>
+                        <span>{project.category}</span>
+                        <h3>{project.title}</h3>
+                      </div>
+
+                      <p>{project.description}</p>
+
+                      <div className="cinema-project-footer">
+                        <small>{project.year}</small>
+                        <strong>View Project →</strong>
+                      </div>
+                    </div>
+                  </a>
+                ),
+              )}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -229,9 +336,7 @@ export default function Home() {
           <div className="about-image-placeholder">
             <div className="placeholder-content">
               <div className="placeholder-circle">MV</div>
-
               <h3>Professional Photo</h3>
-
               <p>Add a professional headshot here.</p>
             </div>
           </div>
