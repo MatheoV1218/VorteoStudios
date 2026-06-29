@@ -114,7 +114,7 @@
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  cursor: none;
+  cursor: text;
   appearance: none;
 }
 
@@ -177,6 +177,7 @@
 @media (max-width: 900px) {
   .contact-inner {
     grid-template-columns: 1fr;
+    gap: 46px;
   }
 }
 

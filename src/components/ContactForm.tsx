@@ -5,19 +5,48 @@ import './ContactForm.css'
 export default function ContactForm() {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
-  const [form, setForm] = useState({ name: '', email: '', budget: '', message: '' })
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    projectType: '',
+    message: '',
+  })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSending(true)
-    setTimeout(() => {
+
+    const data = new FormData(e.currentTarget)
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/mateovillada1@outlook.com', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+        },
+        body: data,
+      })
+
+      if (response.ok) {
+        setSent(true)
+        setForm({
+          name: '',
+          email: '',
+          projectType: '',
+          message: '',
+        })
+      }
+    } catch (error) {
+      console.error('FormSubmit error:', error)
+    } finally {
       setSending(false)
-      setSent(true)
-    }, 1200)
+    }
   }
 
   return (
@@ -29,6 +58,7 @@ export default function ContactForm() {
             heading="Have a website idea? Let's make it real"
             accentWord="make it real"
           />
+
           <div className="contact-detail">
             <div className="contact-item">
               <span className="contact-item-label">Email</span>
@@ -36,28 +66,37 @@ export default function ContactForm() {
                 <a href="mailto:mateovillada1@outlook.com">mateovillada1@outlook.com</a>
               </span>
             </div>
+
             <div className="contact-item">
               <span className="contact-item-label">Based In</span>
               <span className="contact-item-value">White Plains, NY — Remote Friendly</span>
             </div>
+
             <div className="contact-item">
               <span className="contact-item-label">Best Fit</span>
-              <span className="contact-item-value">Small businesses, startups, gyms, creators, and service brands</span>
+              <span className="contact-item-value">
+                Small businesses, startups, gyms, creators, and service brands
+              </span>
             </div>
           </div>
+
           <div className="contact-availability">
             <div className="avail-dot" />
             <span>Currently accepting new projects</span>
           </div>
         </div>
 
-        <form className="contact-form">
+        <form className="contact-form" onSubmit={handleSubmit}>
           {sent ? (
             <div className="submit-success">
               ✓ Message received. I will get back to you soon.
             </div>
           ) : (
             <>
+              <input type="hidden" name="_subject" value="New Portfolio Inquiry" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+
               <div className="form-row">
                 <div className="form-field">
                   <label htmlFor="name">Your Name</label>
@@ -68,8 +107,10 @@ export default function ContactForm() {
                     placeholder="Alex Rivera"
                     value={form.name}
                     onChange={handleChange}
+                    required
                   />
                 </div>
+
                 <div className="form-field">
                   <label htmlFor="email">Email</label>
                   <input
@@ -79,12 +120,20 @@ export default function ContactForm() {
                     placeholder="alex@company.com"
                     value={form.email}
                     onChange={handleChange}
+                    required
                   />
                 </div>
               </div>
+
               <div className="form-field">
-                <label htmlFor="budget">Project Type</label>
-                <select id="budget" name="budget" value={form.budget} onChange={handleChange}>
+                <label htmlFor="projectType">Project Type</label>
+                <select
+                  id="projectType"
+                  name="projectType"
+                  value={form.projectType}
+                  onChange={handleChange}
+                  required
+                >
                   <option value="" disabled>Select one</option>
                   <option>New website</option>
                   <option>Website redesign</option>
@@ -93,6 +142,7 @@ export default function ContactForm() {
                   <option>Not sure yet</option>
                 </select>
               </div>
+
               <div className="form-field">
                 <label htmlFor="message">Tell me about your project</label>
                 <textarea
@@ -101,13 +151,21 @@ export default function ContactForm() {
                   placeholder="What do you need built? What does your business do? What is the main goal of the website?"
                   value={form.message}
                   onChange={handleChange}
+                  required
                 />
               </div>
-              <button className={`form-submit ${sending ? 'sending' : ''}`} onClick={handleSubmit}>
+
+              <button type="submit" className={`form-submit ${sending ? 'sending' : ''}`}>
                 {sending ? 'Sending...' : 'Send Message'}
                 {!sending && (
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M2 8h12M9 4l5 4-5 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M2 8h12M9 4l5 4-5 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 )}
               </button>

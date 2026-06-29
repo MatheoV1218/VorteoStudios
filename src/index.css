@@ -15,7 +15,7 @@
   --accent-2: #ff7a59;
   --accent-soft: rgba(47, 128, 237, 0.12);
   --border: rgba(17, 24, 39, 0.1);
-  --glass: rgba(255, 255, 255, 0.7);
+  --glass: rgba(255, 255, 255, 0.72);
 
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -30,14 +30,14 @@ html {
 body {
   min-width: 320px;
   background:
-    radial-gradient(circle at top left, rgba(255, 122, 89, 0.18), transparent 32rem),
-    radial-gradient(circle at top right, rgba(47, 128, 237, 0.16), transparent 34rem),
+    radial-gradient(circle at top left, rgba(255, 122, 89, 0.14), transparent 30rem),
+    radial-gradient(circle at top right, rgba(47, 128, 237, 0.12), transparent 32rem),
     linear-gradient(180deg, #fffaf3 0%, #f7efe5 100%);
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
 }
 
 ::selection {
@@ -65,14 +65,12 @@ a {
 
 button {
   font-family: var(--font-body);
-  cursor: none;
+  cursor: pointer;
 }
 
-@media (hover: none) {
-  body,
-  button {
-    cursor: auto;
-  }
+img {
+  display: block;
+  max-width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {

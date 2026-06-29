@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import './Navbar.css'
 
 const navLinks = [
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
-  { label: 'Process', href: '#process' },
+  { label: 'Work', href: '/#work' },
+  { label: 'Services', href: '/#services' },
+  { label: 'About', href: '/#about' },
+  { label: 'Process', href: '/#process' },
 ]
 
 export default function Navbar() {
@@ -20,7 +20,7 @@ export default function Navbar() {
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <a href="#hero" className="nav-logo" onClick={() => setMenuOpen(false)}>
+      <a href="/#hero" className="nav-logo" onClick={() => setMenuOpen(false)}>
         <div className="logo-mark">
           <span>V</span>
         </div>
@@ -38,13 +38,13 @@ export default function Navbar() {
           </li>
         ))}
         <li className="mobile-cta">
-          <a href="#contact" onClick={() => setMenuOpen(false)}>
+          <a href="/#contact" onClick={() => setMenuOpen(false)}>
             <button className="nav-cta">Let's Talk</button>
           </a>
         </li>
       </ul>
 
-      <a href="#contact" className="desktop-cta">
+      <a href="/#contact" className="desktop-cta">
         <button className="nav-cta">Let's Talk</button>
       </a>
 
