@@ -1,6 +1,7 @@
 import SectionTitle from "../components/SectionTitle";
 import ContactForm from "../components/ContactForm";
 import { projects } from "../data/projects";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const services = [
@@ -266,8 +267,8 @@ export default function Home() {
             <div className="project-cinema-track">
               {[...projects, ...projects, ...projects, ...projects].map(
                 (project, i) => (
-                  <a
-                    href={`/projects/${project.slug}`}
+                  <Link
+                    to={`/projects/${project.slug}`}
                     key={`${project.id}-${i}`}
                     className="cinema-project-card"
                     style={{ ["--project-color" as string]: project.color }}
@@ -293,7 +294,7 @@ export default function Home() {
                         <strong>View Project →</strong>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 ),
               )}
             </div>
