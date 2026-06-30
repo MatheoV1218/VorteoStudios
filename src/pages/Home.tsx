@@ -9,12 +9,22 @@ const services = [
   {
     name: "Modern Business Websites",
     desc: "Clean, fast websites that make your business look trustworthy and professional the second someone lands on the page.",
-    items: ["Landing pages", "Full websites", "Mobile-first layouts", "Clear calls to action"],
+    items: [
+      "Landing pages",
+      "Full websites",
+      "Mobile-first layouts",
+      "Clear calls to action",
+    ],
   },
   {
     name: "Website Redesigns",
     desc: "I take outdated, cluttered, or slow websites and rebuild them into something polished, organized, and easier for customers to use.",
-    items: ["Better layout", "Stronger visuals", "Cleaner content flow", "Faster loading"],
+    items: [
+      "Better layout",
+      "Stronger visuals",
+      "Cleaner content flow",
+      "Faster loading",
+    ],
   },
   {
     name: "React Front-End Builds",
@@ -24,32 +34,78 @@ const services = [
   {
     name: "Booking & Contact Flows",
     desc: "Simple user flows that help visitors take action, whether that means booking a class, sending a message, or learning about a service.",
-    items: ["Contact forms", "Booking links", "CTA sections", "Lead-focused pages"],
+    items: [
+      "Contact forms",
+      "Booking links",
+      "CTA sections",
+      "Lead-focused pages",
+    ],
   },
   {
     name: "Responsive Design",
     desc: "Every section is built to look good on phones, tablets, laptops, and desktops because most customers will check your site from their phone first.",
-    items: ["Mobile menus", "Flexible grids", "Touch-friendly buttons", "Clean spacing"],
+    items: [
+      "Mobile menus",
+      "Flexible grids",
+      "Touch-friendly buttons",
+      "Clean spacing",
+    ],
   },
   {
     name: "Launch Support",
     desc: "I can help get the site live, connect the domain, clean up final details, and make sure the finished product feels ready for real visitors.",
-    items: ["Vercel hosting", "Domain setup", "Final testing", "Basic SEO setup"],
+    items: [
+      "Vercel hosting",
+      "Domain setup",
+      "Final testing",
+      "Basic SEO setup",
+    ],
   },
 ];
 
 const processSteps = [
-  { num: "01", title: "Understand the business", desc: "We start by getting clear on the business, the audience, the goal of the website, and what the visitor should do next." },
-  { num: "02", title: "Plan the structure", desc: "I map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts." },
-  { num: "03", title: "Design the experience", desc: "The visual direction comes together with colors, spacing, typography, layout, and a style that actually fits the brand." },
-  { num: "04", title: "Build the website", desc: "I turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later." },
-  { num: "05", title: "Launch and polish", desc: "Before launch, I test the site across screen sizes, clean up small details, connect the important links, and help get it live." },
+  {
+    num: "01",
+    title: "Understand the business",
+    desc: "We start by getting clear on the business, the audience, the goal of the website, and what the visitor should do next.",
+  },
+  {
+    num: "02",
+    title: "Plan the structure",
+    desc: "I map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts.",
+  },
+  {
+    num: "03",
+    title: "Design the experience",
+    desc: "The visual direction comes together with colors, spacing, typography, layout, and a style that actually fits the brand.",
+  },
+  {
+    num: "04",
+    title: "Build the website",
+    desc: "I turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later.",
+  },
+  {
+    num: "05",
+    title: "Launch and polish",
+    desc: "Before launch, I test the site across screen sizes, clean up small details, connect the important links, and help get it live.",
+  },
 ];
 
 const marqueeItems = [
-  "React", "TypeScript", "JavaScript", "HTML", "CSS", "Vite", "React Router",
-  "Supabase", "Vercel", "GitHub", "Responsive Design", "FormSubmit",
-  "SEO Basics", "Component Design",
+  "React",
+  "TypeScript",
+  "JavaScript",
+  "HTML",
+  "CSS",
+  "Vite",
+  "React Router",
+  "Supabase",
+  "Vercel",
+  "GitHub",
+  "Responsive Design",
+  "FormSubmit",
+  "SEO Basics",
+  "Component Design",
 ];
 
 export default function Home() {
@@ -137,12 +193,14 @@ export default function Home() {
 
       <div className="marquee-section" aria-label="Tools and skills">
         <div className="marquee-track">
-          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => (
-            <div key={`${item}-${i}`} className="marquee-item">
-              <span className="dot" />
-              {item}
-            </div>
-          ))}
+          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map(
+            (item, i) => (
+              <div key={`${item}-${i}`} className="marquee-item">
+                <span className="dot" />
+                {item}
+              </div>
+            ),
+          )}
         </div>
       </div>
 
@@ -170,14 +228,13 @@ export default function Home() {
               startXRef.current = e.clientX;
               startScrollRef.current = scroller.scrollLeft;
               scroller.classList.add("is-dragging");
-              scroller.setPointerCapture(e.pointerId);
             }}
             onPointerMove={(e) => {
               if (!isDraggingRef.current) return;
 
               const dx = e.clientX - startXRef.current;
 
-              if (Math.abs(dx) > 6) {
+              if (Math.abs(dx) > 8) {
                 movedRef.current = true;
               }
 
@@ -187,13 +244,13 @@ export default function Home() {
               isDraggingRef.current = false;
               e.currentTarget.classList.remove("is-dragging");
 
-              if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-                e.currentTarget.releasePointerCapture(e.pointerId);
-              }
-
               setTimeout(() => {
                 movedRef.current = false;
-              }, 80);
+              }, 0);
+            }}
+            onPointerLeave={(e) => {
+              isDraggingRef.current = false;
+              e.currentTarget.classList.remove("is-dragging");
             }}
             onPointerCancel={(e) => {
               isDraggingRef.current = false;
@@ -201,43 +258,45 @@ export default function Home() {
             }}
           >
             <div className="project-cinema-track">
-              {[...projects, ...projects, ...projects, ...projects].map((project, i) => (
-                <Link
-                  to={`/projects/${project.slug}`}
-                  key={`${project.id}-${i}`}
-                  className="cinema-project-card"
-                  style={{ ["--project-color" as string]: project.color }}
-                  aria-label={`View ${project.title} project`}
-                  draggable={false}
-                  onClick={(e) => {
-                    if (movedRef.current) {
-                      e.preventDefault();
-                    }
-                  }}
-                >
-                  <div className="cinema-project-image">
-                    <img
-                      src={project.image}
-                      alt={`${project.title} preview`}
-                      draggable={false}
-                    />
-                  </div>
-
-                  <div className="cinema-project-content">
-                    <div>
-                      <span>{project.category}</span>
-                      <h3>{project.title}</h3>
+              {[...projects, ...projects, ...projects, ...projects].map(
+                (project, i) => (
+                  <Link
+                    to={`/projects/${project.slug}`}
+                    key={`${project.id}-${i}`}
+                    className="cinema-project-card"
+                    style={{ ["--project-color" as string]: project.color }}
+                    aria-label={`View ${project.title} project`}
+                    draggable={false}
+                    onClick={(e) => {
+                      if (movedRef.current) {
+                        e.preventDefault();
+                      }
+                    }}
+                  >
+                    <div className="cinema-project-image">
+                      <img
+                        src={project.image}
+                        alt={`${project.title} preview`}
+                        draggable={false}
+                      />
                     </div>
 
-                    <p>{project.description}</p>
+                    <div className="cinema-project-content">
+                      <div>
+                        <span>{project.category}</span>
+                        <h3>{project.title}</h3>
+                      </div>
 
-                    <div className="cinema-project-footer">
-                      <small>{project.year}</small>
-                      <strong>View Project →</strong>
+                      <p>{project.description}</p>
+
+                      <div className="cinema-project-footer">
+                        <small>{project.year}</small>
+                        <strong>View Project →</strong>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ),
+              )}
             </div>
           </div>
         </div>
@@ -302,9 +361,15 @@ export default function Home() {
             </p>
 
             <div className="about-highlights">
-              <div><strong>📍</strong>White Plains, NY</div>
-              <div><strong>💻</strong>React • TypeScript • Supabase</div>
-              <div><strong>🚀</strong>Available for freelance work</div>
+              <div>
+                <strong>📍</strong>White Plains, NY
+              </div>
+              <div>
+                <strong>💻</strong>React • TypeScript • Supabase
+              </div>
+              <div>
+                <strong>🚀</strong>Available for freelance work
+              </div>
             </div>
           </div>
         </div>
