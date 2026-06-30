@@ -854,13 +854,12 @@ justify-content:center;
 .project-cinema-scroller {
   overflow-x: auto;
   overflow-y: hidden;
-  cursor: grab;
-  scroll-snap-type: none;
-  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding: 18px 0 42px;
+  cursor: grab;
   user-select: none;
   touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .project-cinema-scroller::-webkit-scrollbar {
@@ -869,8 +868,8 @@ justify-content:center;
 
 .project-cinema-scroller.is-dragging {
   cursor: grabbing;
+  scroll-behavior: auto;
 }
-
 
 .project-cinema-scroller.is-dragging .cinema-project-card {
   pointer-events: none;
@@ -881,9 +880,6 @@ justify-content:center;
   display: flex;
   gap: 26px;
   padding: 0 max(28px, calc((100vw - 1180px) / 2 + 48px));
-  animation: cinema-scroll 42s linear infinite;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
 }
 
 .cinema-project-card {
@@ -993,13 +989,51 @@ justify-content:center;
   font-size: 0.9rem;
 }
 
-@keyframes cinema-scroll {
-  from {
-    transform: translate3d(0, 0, 0);
+@media (max-width: 760px) {
+  .project-cinema-section {
+    padding: 92px 0;
   }
 
-  to {
-    transform: translate3d(-25%, 0, 0);
+  .project-cinema-heading {
+    padding: 0 24px;
+  }
+
+  .project-cinema-track {
+    gap: 18px;
+    padding: 0 24px;
+  }
+
+  .cinema-project-card {
+    flex-basis: 84vw;
+    min-height: 460px;
+    border-radius: 28px;
+    transform: none;
+  }
+
+  .cinema-project-card:hover,
+  .cinema-project-card:focus-visible {
+    transform: none;
+  }
+
+  .cinema-project-image,
+  .cinema-project-image img {
+    min-height: 460px;
+  }
+
+  .cinema-project-content {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cinema-project-card {
+    flex-basis: 88vw;
+    min-height: 420px;
+  }
+
+  .cinema-project-image,
+  .cinema-project-image img {
+    min-height: 420px;
   }
 }
 
@@ -1055,4 +1089,38 @@ justify-content:center;
 .project-cinema-scroller.is-user-control .project-cinema-track,
 .project-cinema-scroller.is-dragging .project-cinema-track {
   animation-play-state: paused;
+}
+
+.cinema-controls {
+  max-width: 1180px;
+  margin: 0 auto 18px;
+  padding: 0 48px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.cinema-controls button {
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 14px 34px rgba(17, 24, 39, 0.18);
+  transition: transform 0.2s ease;
+}
+
+.cinema-controls button:hover {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 760px) {
+  .cinema-controls {
+    display: none;
+  }
 }

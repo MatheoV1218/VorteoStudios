@@ -1,29 +1,20 @@
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import SectionTitle from "../components/SectionTitle";
 import ContactForm from "../components/ContactForm";
 import { projects } from "../data/projects";
-import { Link } from "react-router-dom";
 import "./Home.css";
 
 const services = [
   {
     name: "Modern Business Websites",
     desc: "Clean, fast websites that make your business look trustworthy and professional the second someone lands on the page.",
-    items: [
-      "Landing pages",
-      "Full websites",
-      "Mobile-first layouts",
-      "Clear calls to action",
-    ],
+    items: ["Landing pages", "Full websites", "Mobile-first layouts", "Clear calls to action"],
   },
   {
     name: "Website Redesigns",
     desc: "I take outdated, cluttered, or slow websites and rebuild them into something polished, organized, and easier for customers to use.",
-    items: [
-      "Better layout",
-      "Stronger visuals",
-      "Cleaner content flow",
-      "Faster loading",
-    ],
+    items: ["Better layout", "Stronger visuals", "Cleaner content flow", "Faster loading"],
   },
   {
     name: "React Front-End Builds",
@@ -33,81 +24,76 @@ const services = [
   {
     name: "Booking & Contact Flows",
     desc: "Simple user flows that help visitors take action, whether that means booking a class, sending a message, or learning about a service.",
-    items: [
-      "Contact forms",
-      "Booking links",
-      "CTA sections",
-      "Lead-focused pages",
-    ],
+    items: ["Contact forms", "Booking links", "CTA sections", "Lead-focused pages"],
   },
   {
     name: "Responsive Design",
     desc: "Every section is built to look good on phones, tablets, laptops, and desktops because most customers will check your site from their phone first.",
-    items: [
-      "Mobile menus",
-      "Flexible grids",
-      "Touch-friendly buttons",
-      "Clean spacing",
-    ],
+    items: ["Mobile menus", "Flexible grids", "Touch-friendly buttons", "Clean spacing"],
   },
   {
     name: "Launch Support",
     desc: "I can help get the site live, connect the domain, clean up final details, and make sure the finished product feels ready for real visitors.",
-    items: [
-      "Vercel hosting",
-      "Domain setup",
-      "Final testing",
-      "Basic SEO setup",
-    ],
+    items: ["Vercel hosting", "Domain setup", "Final testing", "Basic SEO setup"],
   },
 ];
 
 const processSteps = [
-  {
-    num: "01",
-    title: "Understand the business",
-    desc: "We start by getting clear on the business, the audience, the goal of the website, and what the visitor should do next.",
-  },
-  {
-    num: "02",
-    title: "Plan the structure",
-    desc: "I map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts.",
-  },
-  {
-    num: "03",
-    title: "Design the experience",
-    desc: "The visual direction comes together with colors, spacing, typography, layout, and a style that actually fits the brand.",
-  },
-  {
-    num: "04",
-    title: "Build the website",
-    desc: "I turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later.",
-  },
-  {
-    num: "05",
-    title: "Launch and polish",
-    desc: "Before launch, I test the site across screen sizes, clean up small details, connect the important links, and help get it live.",
-  },
+  { num: "01", title: "Understand the business", desc: "We start by getting clear on the business, the audience, the goal of the website, and what the visitor should do next." },
+  { num: "02", title: "Plan the structure", desc: "I map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts." },
+  { num: "03", title: "Design the experience", desc: "The visual direction comes together with colors, spacing, typography, layout, and a style that actually fits the brand." },
+  { num: "04", title: "Build the website", desc: "I turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later." },
+  { num: "05", title: "Launch and polish", desc: "Before launch, I test the site across screen sizes, clean up small details, connect the important links, and help get it live." },
 ];
 
 const marqueeItems = [
-  "React",
-  "TypeScript",
-  "JavaScript",
-  "HTML",
-  "CSS",
-  "Vite",
-  "React Router",
-  "Supabase",
-  "Vercel",
-  "GitHub",
-  "Responsive Design",
-  "FormSubmit",
-  "SEO Basics",
-  "Component Design",
+  "React", "TypeScript", "JavaScript", "HTML", "CSS", "Vite", "React Router",
+  "Supabase", "Vercel", "GitHub", "Responsive Design", "FormSubmit",
+  "SEO Basics", "Component Design",
 ];
 
 export default function Home() {
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const startScrollRef = useRef(0);
+  const movedRef = useRef(false);
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const setStartPosition = () => {
+      const oneSet = scroller.scrollWidth / 4;
+      scroller.scrollLeft = oneSet;
+    };
+
+    requestAnimationFrame(setStartPosition);
+
+    const handleScroll = () => {
+      const oneSet = scroller.scrollWidth / 4;
+
+      if (oneSet <= 0) return;
+
+      if (scroller.scrollLeft <= oneSet * 0.35) {
+        scroller.scrollLeft += oneSet;
+      }
+
+      if (scroller.scrollLeft >= oneSet * 2.65) {
+        scroller.scrollLeft -= oneSet;
+      }
+    };
+
+    scroller.addEventListener("scroll", handleScroll, { passive: true });
+
+    window.addEventListener("resize", setStartPosition);
+
+    return () => {
+      scroller.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", setStartPosition);
+    };
+  }, []);
+
   return (
     <>
       <section className="hero" id="hero">
@@ -139,15 +125,6 @@ export default function Home() {
             <div className="hero-actions">
               <a href="#contact" className="btn-primary">
                 Start a Project
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path
-                    d="M3 8h10M9 4l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
               </a>
 
               <a href="#work" className="btn-secondary">
@@ -160,14 +137,12 @@ export default function Home() {
 
       <div className="marquee-section" aria-label="Tools and skills">
         <div className="marquee-track">
-          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map(
-            (item, i) => (
-              <div key={`${item}-${i}`} className="marquee-item">
-                <span className="dot" />
-                {item}
-              </div>
-            ),
-          )}
+          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => (
+            <div key={`${item}-${i}`} className="marquee-item">
+              <span className="dot" />
+              {item}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -177,7 +152,7 @@ export default function Home() {
             eyebrow="Selected Work"
             heading="A cinematic showcase of recent projects"
             accentWord="recent projects"
-            sub="Scroll through the reel, pause on a project, and click into the full case study."
+            sub="Grab the reel, swipe through the projects, and click into the full case study."
           />
         </div>
 
@@ -185,118 +160,84 @@ export default function Home() {
           <div className="project-cinema-glow" />
 
           <div
+            ref={scrollerRef}
             className="project-cinema-scroller"
             aria-label="Project showcase"
-            onPointerEnter={(e) => {
-              e.currentTarget.classList.add("is-user-control");
-            }}
-            onPointerLeave={(e) => {
-              e.currentTarget.classList.remove("is-user-control");
-            }}
             onPointerDown={(e) => {
-              const slider = e.currentTarget;
-              slider.classList.add("is-dragging");
-              slider.setPointerCapture(e.pointerId);
+              const scroller = e.currentTarget;
+              isDraggingRef.current = true;
+              movedRef.current = false;
+              startXRef.current = e.clientX;
+              startScrollRef.current = scroller.scrollLeft;
+              scroller.classList.add("is-dragging");
+              scroller.setPointerCapture(e.pointerId);
+            }}
+            onPointerMove={(e) => {
+              if (!isDraggingRef.current) return;
 
-              let startX = e.clientX;
-              let startScroll = slider.scrollLeft;
-              let velocity = 0;
-              let lastX = e.clientX;
-              let lastTime = performance.now();
-              let frame = 0;
+              const dx = e.clientX - startXRef.current;
 
-              const track = slider.querySelector(
-                ".project-cinema-track",
-              ) as HTMLElement;
-              const halfway = track.scrollWidth / 2;
+              if (Math.abs(dx) > 6) {
+                movedRef.current = true;
+              }
 
-              const keepInfinite = () => {
-                if (slider.scrollLeft >= halfway) {
-                  slider.scrollLeft -= halfway;
-                }
+              e.currentTarget.scrollLeft = startScrollRef.current - dx;
+            }}
+            onPointerUp={(e) => {
+              isDraggingRef.current = false;
+              e.currentTarget.classList.remove("is-dragging");
 
-                if (slider.scrollLeft <= 0) {
-                  slider.scrollLeft += halfway;
-                }
-              };
+              if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+                e.currentTarget.releasePointerCapture(e.pointerId);
+              }
 
-              const onPointerMove = (moveEvent: PointerEvent) => {
-                const now = performance.now();
-                const currentX = moveEvent.clientX;
-                const dx = currentX - startX;
-
-                slider.scrollLeft = startScroll - dx;
-                keepInfinite();
-
-                const dt = now - lastTime;
-                if (dt > 0) {
-                  velocity = (lastX - currentX) / dt;
-                }
-
-                lastX = currentX;
-                lastTime = now;
-              };
-
-              const momentum = () => {
-                slider.scrollLeft += velocity * 18;
-                velocity *= 0.94;
-                keepInfinite();
-
-                if (Math.abs(velocity) > 0.02) {
-                  frame = requestAnimationFrame(momentum);
-                }
-              };
-
-              const stopDragging = () => {
-                slider.classList.remove("is-dragging");
-                slider.releasePointerCapture(e.pointerId);
-
-                window.removeEventListener("pointermove", onPointerMove);
-                window.removeEventListener("pointerup", stopDragging);
-                window.removeEventListener("pointercancel", stopDragging);
-
-                cancelAnimationFrame(frame);
-                frame = requestAnimationFrame(momentum);
-              };
-
-              window.addEventListener("pointermove", onPointerMove);
-              window.addEventListener("pointerup", stopDragging);
-              window.addEventListener("pointercancel", stopDragging);
+              setTimeout(() => {
+                movedRef.current = false;
+              }, 80);
+            }}
+            onPointerCancel={(e) => {
+              isDraggingRef.current = false;
+              e.currentTarget.classList.remove("is-dragging");
             }}
           >
             <div className="project-cinema-track">
-              {[...projects, ...projects, ...projects, ...projects].map(
-                (project, i) => (
-                  <Link
-                    to={`/projects/${project.slug}`}
-                    key={`${project.id}-${i}`}
-                    className="cinema-project-card"
-                    style={{ ["--project-color" as string]: project.color }}
-                    aria-label={`View ${project.title} project`}
-                  >
-                    <div className="cinema-project-image">
-                      <img
-                        src={project.image}
-                        alt={`${project.title} preview`}
-                      />
+              {[...projects, ...projects, ...projects, ...projects].map((project, i) => (
+                <Link
+                  to={`/projects/${project.slug}`}
+                  key={`${project.id}-${i}`}
+                  className="cinema-project-card"
+                  style={{ ["--project-color" as string]: project.color }}
+                  aria-label={`View ${project.title} project`}
+                  draggable={false}
+                  onClick={(e) => {
+                    if (movedRef.current) {
+                      e.preventDefault();
+                    }
+                  }}
+                >
+                  <div className="cinema-project-image">
+                    <img
+                      src={project.image}
+                      alt={`${project.title} preview`}
+                      draggable={false}
+                    />
+                  </div>
+
+                  <div className="cinema-project-content">
+                    <div>
+                      <span>{project.category}</span>
+                      <h3>{project.title}</h3>
                     </div>
 
-                    <div className="cinema-project-content">
-                      <div>
-                        <span>{project.category}</span>
-                        <h3>{project.title}</h3>
-                      </div>
+                    <p>{project.description}</p>
 
-                      <p>{project.description}</p>
-
-                      <div className="cinema-project-footer">
-                        <small>{project.year}</small>
-                        <strong>View Project →</strong>
-                      </div>
+                    <div className="cinema-project-footer">
+                      <small>{project.year}</small>
+                      <strong>View Project →</strong>
                     </div>
-                  </Link>
-                ),
-              )}
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
@@ -361,20 +302,9 @@ export default function Home() {
             </p>
 
             <div className="about-highlights">
-              <div>
-                <strong>📍</strong>
-                White Plains, NY
-              </div>
-
-              <div>
-                <strong>💻</strong>
-                React • TypeScript • Supabase
-              </div>
-
-              <div>
-                <strong>🚀</strong>
-                Available for freelance work
-              </div>
+              <div><strong>📍</strong>White Plains, NY</div>
+              <div><strong>💻</strong>React • TypeScript • Supabase</div>
+              <div><strong>🚀</strong>Available for freelance work</div>
             </div>
           </div>
         </div>
