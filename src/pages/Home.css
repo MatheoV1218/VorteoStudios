@@ -1039,3 +1039,10 @@ justify-content:center;
     min-height: 420px;
   }
 }
+@media (max-width: 760px) {
+  .project-cinema-scroller {
+    cursor: default;
+    touch-action: pan-x pan-y;
+    scroll-snap-type: x proximity;
+  }
+}

@@ -120,7 +120,7 @@ export default function Home() {
     if (!scroller) return;
 
     const setStartPosition = () => {
-      const oneSet = scroller.scrollWidth / 4;
+      const oneSet = scroller.scrollWidth / 6;
       scroller.scrollLeft = oneSet;
     };
 
@@ -222,6 +222,8 @@ export default function Home() {
             className="project-cinema-scroller"
             aria-label="Project showcase"
             onPointerDown={(e) => {
+              if (e.pointerType !== "mouse") return;
+
               const scroller = e.currentTarget;
               isDraggingRef.current = true;
               movedRef.current = false;
@@ -230,6 +232,7 @@ export default function Home() {
               scroller.classList.add("is-dragging");
             }}
             onPointerMove={(e) => {
+              if (e.pointerType !== "mouse") return;
               if (!isDraggingRef.current) return;
 
               const dx = e.clientX - startXRef.current;
@@ -241,6 +244,8 @@ export default function Home() {
               e.currentTarget.scrollLeft = startScrollRef.current - dx;
             }}
             onPointerUp={(e) => {
+              if (e.pointerType !== "mouse") return;
+
               isDraggingRef.current = false;
               e.currentTarget.classList.remove("is-dragging");
 
@@ -249,6 +254,8 @@ export default function Home() {
               }, 0);
             }}
             onPointerLeave={(e) => {
+              if (e.pointerType !== "mouse") return;
+
               isDraggingRef.current = false;
               e.currentTarget.classList.remove("is-dragging");
             }}
@@ -258,45 +265,50 @@ export default function Home() {
             }}
           >
             <div className="project-cinema-track">
-              {[...projects, ...projects, ...projects, ...projects].map(
-                (project, i) => (
-                  <Link
-                    to={`/projects/${project.slug}`}
-                    key={`${project.id}-${i}`}
-                    className="cinema-project-card"
-                    style={{ ["--project-color" as string]: project.color }}
-                    aria-label={`View ${project.title} project`}
-                    draggable={false}
-                    onClick={(e) => {
-                      if (movedRef.current) {
-                        e.preventDefault();
-                      }
-                    }}
-                  >
-                    <div className="cinema-project-image">
-                      <img
-                        src={project.image}
-                        alt={`${project.title} preview`}
-                        draggable={false}
-                      />
+              {[
+                ...projects,
+                ...projects,
+                ...projects,
+                ...projects,
+                ...projects,
+                ...projects,
+              ].map((project, i) => (
+                <Link
+                  to={`/projects/${project.slug}`}
+                  key={`${project.id}-${i}`}
+                  className="cinema-project-card"
+                  style={{ ["--project-color" as string]: project.color }}
+                  aria-label={`View ${project.title} project`}
+                  draggable={false}
+                  onClick={(e) => {
+                    if (movedRef.current) {
+                      e.preventDefault();
+                    }
+                  }}
+                >
+                  <div className="cinema-project-image">
+                    <img
+                      src={project.image}
+                      alt={`${project.title} preview`}
+                      draggable={false}
+                    />
+                  </div>
+
+                  <div className="cinema-project-content">
+                    <div>
+                      <span>{project.category}</span>
+                      <h3>{project.title}</h3>
                     </div>
 
-                    <div className="cinema-project-content">
-                      <div>
-                        <span>{project.category}</span>
-                        <h3>{project.title}</h3>
-                      </div>
+                    <p>{project.description}</p>
 
-                      <p>{project.description}</p>
-
-                      <div className="cinema-project-footer">
-                        <small>{project.year}</small>
-                        <strong>View Project →</strong>
-                      </div>
+                    <div className="cinema-project-footer">
+                      <small>{project.year}</small>
+                      <strong>View Project →</strong>
                     </div>
-                  </Link>
-                ),
-              )}
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
