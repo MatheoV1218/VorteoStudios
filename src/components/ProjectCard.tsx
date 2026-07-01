@@ -7,7 +7,7 @@ interface Props {
   index: number
 }
 
-export default function ProjectCard({ project, index }: Props) {
+export default function ProjectCard({ project}: Props) {
   const accentStyle = { '--accent-color': project.color } as CSSProperties
   return (
     <a
