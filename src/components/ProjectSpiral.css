@@ -12,13 +12,10 @@
   margin: 0 auto 48px;
 }
 
-.spiral-header .section-title-wrap { margin-bottom: 0; }
+.spiral-header .section-title-wrap {
+  margin-bottom: 0;
+}
 
-/* ── The dark contained "device" frame ──
-   A layered gradient instead of a flat fill: a soft indigo bloom in the
-   top-left, a warm coral bleed in the bottom-right, resting on a deep
-   navy-to-black base — plus a faint grain texture for a premium,
-   non-flat feel. */
 .spiral-frame {
   position: relative;
   max-width: 1100px;
@@ -68,7 +65,6 @@
   background: radial-gradient(circle, rgba(255, 92, 58, 0.22), transparent 70%);
 }
 
-/* ── Top bar ── */
 .spiral-topbar {
   position: relative;
   z-index: 3;
@@ -86,7 +82,9 @@
   color: var(--white);
 }
 
-.spiral-brand span { color: var(--coral); }
+.spiral-brand span {
+  color: var(--coral);
+}
 
 .spiral-counter {
   font-family: var(--font-mono);
@@ -95,7 +93,6 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* ── The interactive stage ── */
 .spiral-stage {
   position: relative;
   z-index: 2;
@@ -107,9 +104,12 @@
   -webkit-user-select: none;
   cursor: grab;
   outline: none;
+  contain: layout paint;
 }
 
-.spiral-stage.is-dragging { cursor: grabbing; }
+.spiral-stage.is-dragging {
+  cursor: grabbing;
+}
 
 .spiral-track {
   position: absolute;
@@ -130,12 +130,15 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
   will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Instant 1:1 tracking while actively dragging; smooth spring settle
-   the rest of the time (snap-back, arrow clicks, dot clicks, wheel). */
 .spiral-stage.is-settled .spiral-card {
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, filter 0.4s ease;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease,
+    filter 0.4s ease;
 }
 
 .spiral-card::after {
@@ -159,7 +162,6 @@
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
 }
 
-/* Drag hint */
 .spiral-hint {
   position: absolute;
   left: 50%;
@@ -183,14 +185,23 @@
   animation: hint-fade 3s ease infinite;
 }
 
-.spiral-hint-arrow { font-size: 0.9rem; }
-
-@keyframes hint-fade {
-  0%, 100% { opacity: 0.55; transform: translateX(-50%) translateY(0); }
-  50%       { opacity: 1; transform: translateX(-50%) translateY(-3px); }
+.spiral-hint-arrow {
+  font-size: 0.9rem;
 }
 
-/* ── Bottom bar ── */
+@keyframes hint-fade {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-3px);
+  }
+}
+
 .spiral-bottombar {
   position: relative;
   z-index: 3;
@@ -236,7 +247,10 @@
   color: var(--white);
   display: grid;
   place-items: center;
-  transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .spiral-nav-btn:hover:not(:disabled) {
@@ -244,7 +258,10 @@
   transform: translateY(-2px);
 }
 
-.spiral-nav-btn:disabled { opacity: 0.3; cursor: default; }
+.spiral-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
 
 .spiral-cta {
   display: inline-flex;
@@ -257,7 +274,10 @@
   color: var(--ink);
   font-size: 0.82rem;
   font-weight: 700;
-  transition: background 0.2s ease, transform 0.2s ease, gap 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    gap 0.2s ease;
   white-space: nowrap;
 }
 
@@ -267,7 +287,6 @@
   gap: 12px;
 }
 
-/* Mobile dot pagination (hidden on desktop where the index is obvious) */
 .spiral-dots {
   display: none;
   justify-content: center;
@@ -285,7 +304,9 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: width 0.25s ease, background 0.25s ease;
+  transition:
+    width 0.25s ease,
+    background 0.25s ease;
 }
 
 .spiral-dot.active {
@@ -294,154 +315,134 @@
 }
 
 /* ═══════════════════════════════════════════
-   RESPONSIVE
+   MOBILE OPTIMIZATION
 ═══════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .spiral-section { padding: 80px 24px 0; }
-  .spiral-header { margin-bottom: 32px; }
-  .spiral-frame { border-radius: 26px; padding: 18px 16px 20px; }
-  .spiral-stage { height: 520px; }
-  .spiral-card { width: 340px; height: 230px; margin: -115px 0 0 -170px; }
-  .spiral-active-title { font-size: 1.25rem; }
-  .spiral-bottombar { flex-direction: column; align-items: stretch; gap: 16px; }
-  .spiral-controls { justify-content: space-between; }
-  .spiral-cta { flex: 1; justify-content: center; }
-  .spiral-dots { display: flex; }
-}
-
-@media (max-width: 480px) {
-  .spiral-stage { height: 460px; }
-  .spiral-card { width: 290px; height: 200px; margin: -100px 0 0 -145px; border-radius: 16px; }
-  .spiral-frame { padding: 16px 14px 18px; }
-  .spiral-glow-1, .spiral-glow-2 { filter: blur(60px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .spiral-hint { animation: none; }
-  .spiral-stage.is-settled .spiral-card { transition: opacity 0.3s ease; }
-}
-
-/* Mobile performance pass:
-   Keep the same spiral interaction, but remove the expensive parts that make
-   phones stutter: heavy blur, grain overlay, large shadows, CSS filters, and
-   long transitions during touch gestures. */
-@media (max-width: 768px), (hover: none), (pointer: coarse) {
   .spiral-section {
-    padding: 76px 20px 0;
+    padding: 80px 24px 0;
   }
 
   .spiral-header {
-    margin-bottom: 26px;
+    margin-bottom: 32px;
   }
 
   .spiral-frame {
-    border-radius: 24px;
-    padding: 16px 14px 18px;
-    box-shadow: 0 18px 44px rgba(30, 27, 75, 0.18);
+    border-radius: 26px;
+    padding: 18px 16px 20px;
+    box-shadow: 0 20px 48px rgba(30, 27, 75, 0.22);
   }
 
   .spiral-frame::before {
-    display: none;
+    opacity: 0.18;
+    mix-blend-mode: normal;
   }
 
   .spiral-glow {
-    display: none;
+    filter: blur(44px);
+  }
+
+  .spiral-glow-1 {
+    width: 320px;
+    height: 320px;
+  }
+
+  .spiral-glow-2 {
+    width: 280px;
+    height: 280px;
   }
 
   .spiral-stage {
-    height: 460px;
-    perspective: 820px;
-    touch-action: none !important;
-    overscroll-behavior: contain;
-    cursor: grab;
-  }
-
-  .spiral-stage.is-dragging {
-    cursor: grabbing;
-  }
-
-  .spiral-track {
-    transform-style: preserve-3d;
+    height: 500px;
+    perspective: 680px;
   }
 
   .spiral-card {
-    width: min(82vw, 330px);
-    height: min(55vw, 218px);
-    margin: calc(min(55vw, 218px) / -2) 0 0 calc(min(82vw, 330px) / -2);
+    width: 330px;
+    height: 220px;
+    margin: -110px 0 0 -165px;
     border-radius: 18px;
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.32);
-    will-change: transform, opacity;
-  }
-
-  .spiral-card::after {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 48%, rgba(0, 0, 0, 0.24));
-  }
-
-  .spiral-stage.is-settled .spiral-card {
-    transition: transform 0.28s ease-out, opacity 0.2s ease;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
   }
 
   .spiral-card.active {
     box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
   }
 
+  .spiral-card::after {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 45%, rgba(0, 0, 0, 0.18));
+  }
+
+  .spiral-stage.is-settled .spiral-card {
+    transition:
+      transform 0.28s ease,
+      opacity 0.22s ease;
+  }
+
   .spiral-hint {
     display: none;
-  }
-
-  .spiral-bottombar {
-    padding: 16px 6px 2px;
-    gap: 14px;
-  }
-
-  .spiral-active-meta {
-    font-size: 0.6rem;
   }
 
   .spiral-active-title {
     font-size: 1.25rem;
   }
 
-  .spiral-controls {
-    gap: 8px;
+  .spiral-bottombar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
   }
 
-  .spiral-nav-btn {
-    width: 40px;
-    height: 40px;
+  .spiral-controls {
+    justify-content: space-between;
   }
 
   .spiral-cta {
-    height: 40px;
-    padding: 0 16px;
-    font-size: 0.78rem;
+    flex: 1;
+    justify-content: center;
   }
 
-  .spiral-dot {
-    transition: none;
+  .spiral-dots {
+    display: flex;
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
+  .spiral-section {
+    padding-inline: 18px;
+  }
+
+  .spiral-frame {
+    padding: 16px 12px 18px;
+    border-radius: 22px;
+  }
+
   .spiral-stage {
-    height: 420px;
+    height: 440px;
+    perspective: 560px;
   }
 
   .spiral-card {
-    width: 80vw;
-    height: 54vw;
-    margin: -27vw 0 0 -40vw;
+    width: 286px;
+    height: 194px;
+    margin: -97px 0 0 -143px;
+    border-radius: 16px;
+  }
+
+  .spiral-topbar {
+    padding-inline: 6px;
   }
 
   .spiral-bottombar {
-    align-items: stretch;
+    padding-inline: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spiral-hint {
+    animation: none;
   }
 
-  .spiral-controls {
-    flex-wrap: wrap;
-  }
-
-  .spiral-cta {
-    flex-basis: 100%;
+  .spiral-stage.is-settled .spiral-card {
+    transition: opacity 0.3s ease;
   }
 }
