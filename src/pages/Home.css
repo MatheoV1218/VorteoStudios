@@ -702,31 +702,11 @@
   .hero-blob-1, .hero-blob-2, .marquee-track, .scroll-bar { animation: none; }
 }
 
-/* ── Mobile animation removal
-   Desktop keeps all original animation. On mobile, reveal/hero elements are
-   shown immediately so disabling animations does not leave them invisible. */
-@media (max-width: 768px), (hover: none) {
-  .hero-eyebrow,
-  .hero-title,
-  .hero-title .hl::after,
-  .hero-sub,
-  .hero-actions,
-  .hero-right,
-  .hero-scroll,
-  .service-card,
-  .about-visual,
-  .about-content,
-  .process-step {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-    transition: none !important;
-  }
 
-  .hero-blob-1,
-  .hero-blob-2,
-  .marquee-track,
-  .scroll-bar {
-    animation: none !important;
+/* Hide the floating "Scroll" cue on mobile. It sits too close to the work
+   section and adds unnecessary motion above the project spiral. */
+@media (max-width: 768px), (hover: none) {
+  .hero-scroll {
+    display: none;
   }
 }

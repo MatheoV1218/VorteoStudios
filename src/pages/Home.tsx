@@ -108,25 +108,6 @@ export default function Home() {
               <a href="#work" className="btn-secondary">View My Work</a>
             </div>
           </div>
-
-          <div className="hero-right">
-            <div className="hero-stat-card">
-              <div className="hero-stat-item">
-                <div className="stat-num"><span className="coral">20+</span></div>
-                <div className="stat-lbl">Projects delivered</div>
-              </div>
-              <div className="stat-divider" />
-              <div className="hero-stat-item">
-                <div className="stat-num"><span className="indigo">100%</span></div>
-                <div className="stat-lbl">Client satisfaction</div>
-              </div>
-              <div className="stat-divider" />
-              <div className="hero-stat-item">
-                <div className="stat-num">5+</div>
-                <div className="stat-lbl">Years building</div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="hero-scroll">
@@ -192,10 +173,6 @@ export default function Home() {
                 <p>Add your photo here</p>
               </div>
             </div>
-            <div className="about-badge">
-              <div className="badge-num">5+</div>
-              <div className="badge-lbl">Years building</div>
-            </div>
           </div>
 
           <div
@@ -205,12 +182,17 @@ export default function Home() {
             <span className="about-eyebrow">About Me</span>
             <h2>Hi, I'm <span>Matheo.</span></h2>
             <p>
-              I build modern websites for small businesses, creators, and local brands
-              that want to look more professional online.
+              I create clean, modern websites for small businesses, creators, and local brands
+              that want to look more professional and trustworthy online.
             </p>
             <p>
-              My focus is simple: clean design, responsive development, and websites
-              that help visitors quickly understand what you do and take action.
+              My goal is to make every website feel clear, polished, and easy to use.
+              I focus on strong layouts, responsive design, organized React code, and
+              simple user flows that help visitors understand the brand and take the next step.
+            </p>
+            <p>
+              I enjoy turning rough ideas into finished digital experiences that feel
+              intentional, fast, and ready for real people to use.
             </p>
             <div className="about-highlights">
               <div><strong>📍</strong>White Plains, NY</div>

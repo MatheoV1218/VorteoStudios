@@ -92,9 +92,6 @@ export default function ProjectDetail() {
             <p className="detail-eyebrow">Project Images</p>
             <h2>Project screenshots</h2>
           </div>
-          <p>
-            Add images inside <code>public/projects</code>, then update <code>gallery</code> in <code>data/projects.ts</code>.
-          </p>
         </div>
 
         <div className="detail-gallery">
