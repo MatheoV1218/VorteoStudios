@@ -62,3 +62,18 @@ img { display: block; max-width: 100%; }
     scroll-behavior: auto !important;
   }
 }
+
+/* Mobile-first performance guard: keep desktop motion intact, but remove
+   animations/transitions on touch and small-screen devices. */
+@media (max-width: 768px), (hover: none) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
