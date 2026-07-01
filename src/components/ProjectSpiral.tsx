@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties, PointerEvent as ReactPointerEvent, MouseEvent as ReactMouseEvent, KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import SectionTitle from './SectionTitle'
@@ -12,13 +12,27 @@ interface ProjectSpiralProps {
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 const pad = (n: number) => String(n).padStart(2, '0')
 
+// Deterministic 0..1 "random" from a seed — same card always gets the same
+// idiosyncratic tilt/offset, but it varies per index instead of every card
+// following one smooth uniform curve.
+const seeded = (seed: number) => {
+  const x = Math.sin(seed * 12.9898) * 43758.5453
+  return x - Math.floor(x)
+}
+const seededRange = (seed: number, min: number, max: number) => min + seeded(seed) * (max - min)
+
 /**
  * A draggable, vertical 3D spiral of project images.
  *
  * Each card sits at a point along a helix: as `progress` changes, cards
  * rotate around the Y axis, drift along a sine curve, climb/descend the
  * vertical axis, and recede in depth — all computed from a single number,
- * so adding another project is just adding another array entry.
+ * so adding another project is just adding another array entry. Each card
+ * also carries its own fixed, idiosyncratic tilt (seeded per-index) that
+ * grows the further it drifts from the focused position, so distant cards
+ * scatter into odd angles rather than following one clean uniform curve —
+ * that's what reads as a "spiral you're looking down the barrel of"
+ * instead of a flat fan.
  *
  * Interaction: drag (pointer events, works for mouse/touch/pen), arrow
  * keys, on-screen prev/next buttons, or the mouse wheel on desktop. The
@@ -38,6 +52,18 @@ export default function ProjectSpiral({ projects }: ProjectSpiralProps) {
   const maxIndex = Math.max(projects.length - 1, 0)
   const activeIndex = Math.round(clamp(progress, 0, maxIndex))
   const active = projects[activeIndex]
+
+  // Fixed, per-card "personality" — computed once per project list, not
+  // per render/drag frame, so it stays stable while progress changes.
+  const cardVariance = useMemo(
+    () => projects.map((_, i) => ({
+      rotX: seededRange(i * 3.1 + 1, -24, 24),
+      rotZ: seededRange(i * 7.7 + 2, -18, 18),
+      offX: seededRange(i * 5.3 + 3, -52, 52),
+      offY: seededRange(i * 11.9 + 4, -34, 34),
+    })),
+    [projects.length]
+  )
 
   useEffect(() => {
     const query = window.matchMedia('(hover: hover) and (pointer: fine)')
@@ -120,18 +146,31 @@ export default function ProjectSpiral({ projects }: ProjectSpiralProps) {
     // if it's already the active card, let the Link navigate normally
   }
 
-  const getCardStyle = (local: number): CSSProperties => {
-    const angle = local * 24
-    const y = local * 106
-    const z = -Math.abs(local) * 205
-    const x = Math.sin(local * 1.1) * 84
-    const tilt = local * -7
-    const scale = clamp(1 - Math.abs(local) * 0.15, 0.42, 1)
-    const opacity = clamp(1 - Math.abs(local) * 0.34, 0, 1)
+  const getCardStyle = (local: number, index: number): CSSProperties => {
+    const dist = Math.abs(local)
+    const variance = cardVariance[index]
+    // 0 right at focus (clean, readable) growing to 1 by ~1.5 steps away —
+    // this is what keeps the active card straight while distant ones
+    // scatter into odd angles.
+    const scatter = clamp(dist / 1.5, 0, 1)
+
+    const rotY = local * 32
+    const rotX = variance.rotX * scatter
+    const rotZ = local * -5 + variance.rotZ * scatter
+    const x = Math.sin(local * 1.05) * 58 + variance.offX * scatter
+    const y = local * 98 + variance.offY * scatter
+    const z = -dist * 235
+
+    const scale = clamp(1 - dist * 0.17, 0.32, 1)
+    const opacity = clamp(1 - dist * 0.15, 0, 1)
+    const brightness = clamp(1 - dist * 0.16, 0.32, 1)
+    const saturateAmt = clamp(1 - dist * 0.2, 0.25, 1)
+
     return {
-      transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${angle}deg) rotateZ(${tilt}deg) scale(${scale})`,
+      transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) rotateX(${rotX}deg) rotateZ(${rotZ}deg) scale(${scale})`,
       opacity,
-      zIndex: Math.round(200 - Math.abs(local) * 10),
+      filter: `brightness(${brightness}) saturate(${saturateAmt})`,
+      zIndex: Math.round(1000 - dist * 60),
       pointerEvents: opacity < 0.08 ? 'none' : 'auto',
     }
   }
@@ -177,7 +216,7 @@ export default function ProjectSpiral({ projects }: ProjectSpiralProps) {
                   key={project.id}
                   to={`/projects/${project.slug}`}
                   className={`spiral-card ${i === activeIndex ? 'active' : ''}`}
-                  style={getCardStyle(local)}
+                  style={getCardStyle(local, i)}
                   onClick={e => handleCardClick(e, i)}
                   role="option"
                   aria-selected={i === activeIndex}
