@@ -5,8 +5,24 @@ export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const [hovering, setHovering] = useState(false)
+  const [enabled, setEnabled] = useState(false)
+
+  // Only run the custom cursor on devices that actually have a fine,
+  // hover-capable pointer. On touch devices this used to stay mounted
+  // (just visually hidden via CSS) while still running a
+  // requestAnimationFrame loop and mouseenter/mouseleave listeners on
+  // every interactive element forever — pure wasted battery/CPU.
+  useEffect(() => {
+    const query = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const update = () => setEnabled(query.matches)
+    update()
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
 
   useEffect(() => {
+    if (!enabled) return
+
     let ringX = 0
     let ringY = 0
     let mouseX = 0
@@ -54,7 +70,9 @@ export default function CustomCursor() {
         el.removeEventListener('mouseleave', onLeave)
       })
     }
-  }, [])
+  }, [enabled])
+
+  if (!enabled) return null
 
   return (
     <>

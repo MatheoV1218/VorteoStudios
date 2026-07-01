@@ -8,7 +8,6 @@ import ProjectDetail from './pages/ProjectDetail'
 function App() {
   return (
     <div className="app">
-      <div className="noise-overlay" />
       <Navbar />
       <main>
         <Routes>

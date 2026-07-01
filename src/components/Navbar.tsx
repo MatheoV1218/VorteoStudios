@@ -21,20 +21,14 @@ export default function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <a href="/#hero" className="nav-logo" onClick={() => setMenuOpen(false)}>
-        <div className="logo-mark">
-          <span>V</span>
-        </div>
-        <span className="logo-text">
-          Vor<span>Teo</span>
-        </span>
+        <div className="logo-mark">V</div>
+        <span className="logo-text">Vor<span>Teo</span></span>
       </a>
 
       <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
         {navLinks.map(link => (
           <li key={link.href}>
-            <a href={link.href} onClick={() => setMenuOpen(false)}>
-              {link.label}
-            </a>
+            <a href={link.href} onClick={() => setMenuOpen(false)}>{link.label}</a>
           </li>
         ))}
         <li className="mobile-cta">
@@ -50,12 +44,10 @@ export default function Navbar() {
 
       <button
         className={`nav-mobile-toggle ${menuOpen ? 'open' : ''}`}
-        onClick={() => setMenuOpen(prev => !prev)}
+        onClick={() => setMenuOpen(p => !p)}
         aria-label="Toggle menu"
       >
-        <span />
-        <span />
-        <span />
+        <span /><span /><span />
       </button>
     </nav>
   )

@@ -1,11 +1,11 @@
-import { Link, useParams } from "react-router-dom";
-import type { CSSProperties } from "react";
-import { projects } from "../data/projects";
-import "./ProjectDetail.css";
+import { Link, useParams } from 'react-router-dom'
+import type { CSSProperties } from 'react'
+import { projects } from '../data/projects'
+import './ProjectDetail.css'
 
 export default function ProjectDetail() {
-  const { slug } = useParams();
-  const project = projects.find((item) => item.slug === slug);
+  const { slug } = useParams()
+  const project = projects.find(item => item.slug === slug)
 
   if (!project) {
     return (
@@ -13,51 +13,36 @@ export default function ProjectDetail() {
         <div className="detail-inner">
           <p className="detail-eyebrow">Project Not Found</p>
           <h1>That project page does not exist yet.</h1>
-          <Link to="/" className="detail-button">
-            Back Home
-          </Link>
+          <br />
+          <Link to="/" className="detail-button">← Back Home</Link>
         </div>
       </section>
-    );
+    )
   }
 
-  const accentStyle = {
-    "--accent-color": project.color,
-  } as CSSProperties;
+  const accentStyle = { '--accent-color': project.color } as CSSProperties
 
   return (
     <section className="project-detail">
       <div className="detail-hero" style={accentStyle}>
         <div className="detail-inner detail-hero-grid">
           <div>
-            <Link to="/#work" className="back-link">
-              ← Back to work
-            </Link>
+            <Link to="/#work" className="back-link">← Back to work</Link>
 
-            <p className="detail-eyebrow">
-              {project.category} · {project.year}
-            </p>
-
+            <p className="detail-eyebrow">{project.category} · {project.year}</p>
             <h1>{project.title}</h1>
             <p className="detail-lead">{project.longDescription}</p>
 
             <div className="detail-tags">
-              {project.tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
+              {project.tags.map(tag => <span key={tag}>{tag}</span>)}
             </div>
 
             <div className="detail-actions">
               {project.liveUrl && (
-                <a href={project.liveUrl} target="_blank" rel="noreferrer">
-                  View Live Site
-                </a>
+                <a href={project.liveUrl} target="_blank" rel="noreferrer">View Live Site</a>
               )}
-
               {project.githubUrl && (
-                <a href={project.githubUrl} target="_blank" rel="noreferrer">
-                  View Code
-                </a>
+                <a href={project.githubUrl} target="_blank" rel="noreferrer">View Code</a>
               )}
             </div>
           </div>
@@ -66,11 +51,8 @@ export default function ProjectDetail() {
             <img
               src={project.image}
               alt={`${project.title} cover`}
-              onError={(event) => {
-                event.currentTarget.style.display = "none";
-              }}
+              onError={e => { e.currentTarget.style.display = 'none' }}
             />
-
             <div className="detail-cover-card">
               <span>Case Study</span>
               <strong>{project.title}</strong>
@@ -84,15 +66,13 @@ export default function ProjectDetail() {
           <span>Overview</span>
           <p>{project.description}</p>
         </article>
-
         <article className="detail-story-card">
           <span>Goal</span>
           <p>{project.longDescription}</p>
         </article>
-
         <article className="detail-story-card">
           <span>Tools Used</span>
-          <p>{project.tags.join(", ")}</p>
+          <p>{project.tags.join(', ')}</p>
         </article>
       </div>
 
@@ -101,11 +81,8 @@ export default function ProjectDetail() {
           <p className="detail-eyebrow">Highlights</p>
           <h2>What this project includes</h2>
         </div>
-
         <ul className="detail-highlights">
-          {project.tags.map((tag) => (
-            <li key={tag}>{tag}</li>
-          ))}
+          {project.tags.map(tag => <li key={tag}>{tag}</li>)}
         </ul>
       </div>
 
@@ -115,34 +92,25 @@ export default function ProjectDetail() {
             <p className="detail-eyebrow">Project Images</p>
             <h2>Project screenshots</h2>
           </div>
-
           <p>
-            Add images inside <code>public/projects</code>, then update{" "}
-            <code>gallery</code> in <code>data/projects.ts</code>.
+            Add images inside <code>public/projects</code>, then update <code>gallery</code> in <code>data/projects.ts</code>.
           </p>
         </div>
 
         <div className="detail-gallery">
           {(project.gallery || []).map((src, index) => (
-            <div
-              key={src}
-              className="gallery-item"
-              style={{ background: project.color }}
-            >
+            <div key={src} className="gallery-item" style={{ background: project.color }}>
               <img
                 src={src}
                 alt={`${project.title} screenshot ${index + 1}`}
                 loading="lazy"
-                onError={(event) => {
-                  event.currentTarget.style.display = "none";
-                }}
+                onError={e => { e.currentTarget.style.display = 'none' }}
               />
-
               <span>Screenshot {index + 1}</span>
             </div>
           ))}
         </div>
       </div>
     </section>
-  );
+  )
 }
