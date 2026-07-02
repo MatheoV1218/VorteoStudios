@@ -33,7 +33,7 @@ export const projects: Project[] = [
       "/projects/fusion-house-2.webp",
       "/projects/fusion-house-3.webp",
     ],
-    liveUrl: "",
+    liveUrl: "https://www.thefusionhousefitness.com/",
     githubUrl: "",
   },
   {
@@ -54,7 +54,7 @@ export const projects: Project[] = [
       "/projects/zoner-2.png",
       "/projects/zoner-3.png",
     ],
-    liveUrl: "",
+    liveUrl: "https://www.zoner.pro/",
     githubUrl: "",
   },
   {
@@ -75,7 +75,7 @@ export const projects: Project[] = [
       "/projects/mission-control-2.webp",
       "/projects/mission-control-3.webp",
     ],
-    liveUrl: "",
+    liveUrl: "https://mission-control-umber-xi.vercel.app/",
     githubUrl: "",
   },
   {
@@ -96,7 +96,7 @@ export const projects: Project[] = [
       "/projects/lukumadness-2.webp",
       "/projects/lukumadness-3.webp",
     ],
-    liveUrl: "",
+    liveUrl: "https://www.lukumadnessusa.com/",
     githubUrl: "",
   },
   {
@@ -117,7 +117,7 @@ export const projects: Project[] = [
       "/projects/rhythmlab-2.webp",
       "/projects/rhythmlab-3.webp",
     ],
-    liveUrl: "",
+    liveUrl: "https://ekg-eight.vercel.app/",
     githubUrl: "",
   },
   {
@@ -138,7 +138,7 @@ export const projects: Project[] = [
       "/projects/bizwizard-2.webp",
       "/projects/bizwizard-3.webp",
     ],
-    liveUrl: "",
+    liveUrl: "https://www.bizwizard.ai/",
     githubUrl: "",
   },
 ];
