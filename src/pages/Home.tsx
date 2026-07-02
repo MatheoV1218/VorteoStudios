@@ -1,76 +1,137 @@
-import { useEffect, useRef } from 'react'
-import SectionTitle from '../components/SectionTitle'
-import ContactForm from '../components/ContactForm'
-import ProjectSpiral from '../components/ProjectSpiral'
-import { projects } from '../data/projects'
-import './Home.css'
+import { useEffect, useRef } from "react";
+import SectionTitle from "../components/SectionTitle";
+import ContactForm from "../components/ContactForm";
+import ProjectSpiral from "../components/ProjectSpiral";
+import { projects } from "../data/projects";
+import "./Home.css";
 
 const services = [
   {
-    name: 'Modern Business Websites',
-    desc: 'Clean, fast websites that make your business look trustworthy and professional the second someone lands on the page.',
-    items: ['Landing pages', 'Full websites', 'Mobile-first layouts', 'Clear calls to action'],
+    name: "Modern Business Websites",
+    desc: "Clean, fast websites that make your business look trustworthy and professional the second someone lands on the page.",
+    items: [
+      "Landing pages",
+      "Full websites",
+      "Mobile-first layouts",
+      "Clear calls to action",
+    ],
   },
   {
-    name: 'Website Redesigns',
-    desc: 'I take outdated, cluttered, or slow websites and rebuild them into something polished, organized, and easier for customers to use.',
-    items: ['Better layout', 'Stronger visuals', 'Cleaner content flow', 'Faster loading'],
+    name: "Website Redesigns",
+    desc: "I take outdated, cluttered, or slow websites and rebuild them into something polished, organized, and easier for customers to use.",
+    items: [
+      "Better layout",
+      "Stronger visuals",
+      "Cleaner content flow",
+      "Faster loading",
+    ],
   },
   {
-    name: 'React Front-End Builds',
-    desc: 'Custom React websites built with reusable components, organized code, smooth interactions, and room to grow over time.',
-    items: ['React', 'TypeScript', 'Vite', 'Component structure'],
+    name: "React Front-End Builds",
+    desc: "Custom React websites built with reusable components, organized code, smooth interactions, and room to grow over time.",
+    items: ["React", "TypeScript", "Vite", "Component structure"],
   },
   {
-    name: 'Booking & Contact Flows',
-    desc: 'Simple user flows that help visitors take action — booking a class, sending a message, or learning about a service.',
-    items: ['Contact forms', 'Booking links', 'CTA sections', 'Lead-focused pages'],
+    name: "Booking & Contact Flows",
+    desc: "Simple user flows that help visitors take action — booking a class, sending a message, or learning about a service.",
+    items: [
+      "Contact forms",
+      "Booking links",
+      "CTA sections",
+      "Lead-focused pages",
+    ],
   },
   {
-    name: 'Responsive Design',
-    desc: 'Every section is built to look good on phones, tablets, laptops, and desktops — because most customers check from their phone first.',
-    items: ['Mobile menus', 'Flexible grids', 'Touch-friendly buttons', 'Clean spacing'],
+    name: "Responsive Design",
+    desc: "Every section is built to look good on phones, tablets, laptops, and desktops — because most customers check from their phone first.",
+    items: [
+      "Mobile menus",
+      "Flexible grids",
+      "Touch-friendly buttons",
+      "Clean spacing",
+    ],
   },
   {
-    name: 'Launch Support',
-    desc: 'I help get the site live, connect the domain, clean up final details, and make sure the finished product feels ready for real visitors.',
-    items: ['Vercel hosting', 'Domain setup', 'Final testing', 'Basic SEO setup'],
+    name: "Launch Support",
+    desc: "I help get the site live, connect the domain, clean up final details, and make sure the finished product feels ready for real visitors.",
+    items: [
+      "Vercel hosting",
+      "Domain setup",
+      "Final testing",
+      "Basic SEO setup",
+    ],
   },
-]
+];
 
 const processSteps = [
-  { num: '01', title: 'Understand the business', desc: 'We start by getting clear on the business, the audience, the goal of the website, and what the visitor should do next.' },
-  { num: '02', title: 'Plan the structure', desc: 'I map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts.' },
-  { num: '03', title: 'Design the experience', desc: 'The visual direction comes together with colors, spacing, typography, layout, and a style that actually fits the brand.' },
-  { num: '04', title: 'Build the website', desc: 'I turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later.' },
-  { num: '05', title: 'Launch and polish', desc: 'Before launch, I test the site across screen sizes, clean up small details, connect the important links, and help get it live.' },
-]
+  {
+    num: "01",
+    title: "Understand the business",
+    desc: "We start by getting clear on the business, the audience, the goal of the website, and what the visitor should do next.",
+  },
+  {
+    num: "02",
+    title: "Plan the structure",
+    desc: "I map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts.",
+  },
+  {
+    num: "03",
+    title: "Design the experience",
+    desc: "The visual direction comes together with colors, spacing, typography, layout, and a style that actually fits the brand.",
+  },
+  {
+    num: "04",
+    title: "Build the website",
+    desc: "I turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later.",
+  },
+  {
+    num: "05",
+    title: "Launch and polish",
+    desc: "Before launch, I test the site across screen sizes, clean up small details, connect the important links, and help get it live.",
+  },
+];
 
 const marqueeItems = [
-  'React', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Vite',
-  'React Router', 'Supabase', 'Vercel', 'GitHub', 'Responsive Design',
-  'FormSubmit', 'SEO Basics', 'Component Design',
-]
+  "React",
+  "TypeScript",
+  "JavaScript",
+  "HTML",
+  "CSS",
+  "Vite",
+  "React Router",
+  "Supabase",
+  "Vercel",
+  "GitHub",
+  "Responsive Design",
+  "FormSubmit",
+  "SEO Basics",
+  "Component Design",
+];
 
 function useReveal() {
-  const refs = useRef<(HTMLElement | null)[]>([])
+  const refs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    )
-    refs.current.forEach(el => el && observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("visible");
+        }),
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+    );
+    refs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
-  return (i: number) => (el: HTMLElement | null) => { refs.current[i] = el }
+  return (i: number) => (el: HTMLElement | null) => {
+    refs.current[i] = el;
+  };
 }
 
 export default function Home() {
-  const serviceRef = useReveal()
-  const processRef = useReveal()
-  const aboutRef = useReveal()
+  const serviceRef = useReveal();
+  const processRef = useReveal();
+  const aboutRef = useReveal();
 
   return (
     <>
@@ -87,25 +148,29 @@ export default function Home() {
             </div>
 
             <h1 className="hero-title">
-              Websites that feel<br />
-              <span className="hl">clean, sharp,</span><br />
+              Websites that feel
+              <br />
+              <span className="hl">clean, sharp,</span>
+              <br />
               and built to grow.
             </h1>
-
-            <p className="hero-sub">
-              I build modern websites for small businesses, creators, and local brands
-              that need a stronger online presence. Clean design, responsive layouts,
-              and clear sections that help people understand what you do and take action.
-            </p>
 
             <div className="hero-actions">
               <a href="#contact" className="btn-primary">
                 Start a Project
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M3 8h10M9 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </a>
-              <a href="#work" className="btn-secondary">View My Work</a>
+              <a href="#work" className="btn-secondary">
+                View My Work
+              </a>
             </div>
           </div>
         </div>
@@ -138,7 +203,6 @@ export default function Home() {
             eyebrow="What I Do"
             heading="Websites that help businesses look legit online"
             accentWord="look legit online"
-            sub="My focus is simple: make the business easier to understand, easier to trust, and easier to contact."
           />
           <div className="services-grid">
             {services.map((service, i) => (
@@ -148,11 +212,15 @@ export default function Home() {
                 ref={serviceRef(i) as (el: HTMLDivElement | null) => void}
                 style={{ transitionDelay: `${(i % 3) * 0.08}s` }}
               >
-                <div className="service-number">{String(i + 1).padStart(2, '0')}</div>
+                <div className="service-number">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
                 <h3 className="service-name">{service.name}</h3>
                 <p className="service-desc">{service.desc}</p>
                 <ul className="service-list">
-                  {service.items.map(item => <li key={item}>{item}</li>)}
+                  {service.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
                 </ul>
               </article>
             ))}
@@ -180,24 +248,35 @@ export default function Home() {
             ref={aboutRef(1) as (el: HTMLDivElement | null) => void}
           >
             <span className="about-eyebrow">About Me</span>
-            <h2>Hi, I'm <span>Matheo.</span></h2>
+
+            <h2>
+              Hi, I'm <span>Matheo.</span>
+            </h2>
+
             <p>
-              I create clean, modern websites for small businesses, creators, and local brands
-              that want to look more professional and trustworthy online.
+              I'm a developer who enjoys building digital experiences that feel
+              intentional from the first interaction. I pay close attention to
+              the details that shape how people experience a product, from
+              visual design to performance and usability.
             </p>
+
             <p>
-              My goal is to make every website feel clear, polished, and easy to use.
-              I focus on strong layouts, responsive design, organized React code, and
-              simple user flows that help visitors understand the brand and take the next step.
+              Every project is an opportunity to solve a different problem, and
+              I enjoy combining thoughtful design with clean engineering to
+              create websites and applications that are both polished and
+              practical.
             </p>
-            <p>
-              I enjoy turning rough ideas into finished digital experiences that feel
-              intentional, fast, and ready for real people to use.
-            </p>
+
             <div className="about-highlights">
-              <div><strong>📍</strong>White Plains, NY</div>
-              <div><strong>💻</strong>React · TypeScript · Supabase</div>
-              <div><strong>🚀</strong>Available for freelance work</div>
+              <div>
+                <strong>📍</strong>White Plains, NY
+              </div>
+              <div>
+                <strong>⚡</strong>Performance • UX • Modern Web Apps
+              </div>
+              <div>
+                <strong>🚀</strong>Open to freelance & collaborations
+              </div>
             </div>
           </div>
         </div>
@@ -234,5 +313,5 @@ export default function Home() {
       {/* ── CONTACT ── */}
       <ContactForm />
     </>
-  )
+  );
 }
