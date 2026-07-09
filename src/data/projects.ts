@@ -51,8 +51,8 @@ export const projects: Project[] = [
     image: "/projects/zoner.webp",
     gallery: [
       "/projects/zoner-1.webp",
-      "/projects/zoner-2.png",
-      "/projects/zoner-3.png",
+      "/projects/zoner-2.webp",
+      "/projects/zoner-3.webp",
     ],
     liveUrl: "https://www.zoner.pro/",
     githubUrl: "",

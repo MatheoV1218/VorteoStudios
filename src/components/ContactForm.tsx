@@ -5,6 +5,7 @@ import './ContactForm.css'
 export default function ContactForm() {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -21,6 +22,7 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSending(true)
+    setError('')
 
     const data = new FormData(e.currentTarget)
 
@@ -34,9 +36,11 @@ export default function ContactForm() {
       if (response.ok) {
         setSent(true)
         setForm({ name: '', email: '', projectType: '', message: '' })
+      } else {
+        setError("Something went wrong sending your message. Please email me directly at vorteostudios@gmail.com.")
       }
-    } catch (error) {
-      console.error('FormSubmit error:', error)
+    } catch {
+      setError("Something went wrong sending your message. Please email me directly at vorteostudios@gmail.com.")
     } finally {
       setSending(false)
     }
@@ -168,6 +172,8 @@ export default function ContactForm() {
                   </svg>
                 )}
               </button>
+
+              {error && <div className="submit-error">{error}</div>}
             </>
           )}
         </form>

@@ -52,14 +52,19 @@ export default function SEO() {
     const path = location.pathname
     const projectSlug = path.startsWith('/projects/') ? path.replace('/projects/', '') : null
     const project = projectSlug ? projects.find(item => item.slug === projectSlug) : null
+    const isKnownRoute = path === '/' || (projectSlug !== null && project !== null)
 
-    const title = project
-      ? `${project.title} Case Study | VorTeo Studios`
-      : 'VorTeo Studios | Web Design & Development in White Plains, NY'
+    const title = isKnownRoute
+      ? project
+        ? `${project.title} Case Study | VorTeo Studios`
+        : 'VorTeo Studios | Web Design & Development in White Plains, NY'
+      : 'Page Not Found | VorTeo Studios'
 
-    const description = project
-      ? `${project.description} Built by VorTeo Studios, a web design and development studio based in White Plains, NY.`
-      : 'VorTeo Studios builds clean, responsive websites and web apps for small businesses, creators, gyms, restaurants, and service brands in White Plains and Westchester, NY.'
+    const description = isKnownRoute
+      ? project
+        ? `${project.description} Built by VorTeo Studios, a web design and development studio based in White Plains, NY.`
+        : 'VorTeo Studios builds clean, responsive websites and web apps for small businesses, creators, gyms, restaurants, and service brands in White Plains and Westchester, NY.'
+      : 'The page you are looking for does not exist.'
 
     const canonicalUrl = `${SITE_URL}${path === '/' ? '/' : path}`
     const image = project?.image ? `${SITE_URL}${project.image}` : DEFAULT_IMAGE
@@ -67,7 +72,7 @@ export default function SEO() {
     document.title = title
 
     setMeta('description', description)
-    setMeta('robots', 'index, follow, max-image-preview:large')
+    setMeta('robots', isKnownRoute ? 'index, follow, max-image-preview:large' : 'noindex, follow')
     setMeta('theme-color', '#4f46e5')
 
     setMeta('og:type', project ? 'article' : 'website', true)
