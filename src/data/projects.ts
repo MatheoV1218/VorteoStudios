@@ -12,6 +12,7 @@ export interface Project {
   gallery?: string[];
   liveUrl?: string;
   githubUrl?: string;
+  wideGallery?: boolean;
 }
 
 export const projects: Project[] = [
@@ -140,5 +141,27 @@ export const projects: Project[] = [
     ],
     liveUrl: "https://www.bizwizard.ai/",
     githubUrl: "",
+  },
+  {
+    id: 7,
+    title: "VentSim",
+    slug: "ventsim",
+    category: "Medical Training Simulator",
+    description:
+      "A mechanical ventilation training simulator that lets Respiratory Therapy students practice on realistic ventilator controls with a live, responsive patient physiology engine.",
+    longDescription:
+      "VentSim is a 'flight simulator for ventilators' built for Respiratory Therapy students who only get hands-on time with real ventilators during clinicals. Rather than a quiz app, VentSim recreates a fully modeled ventilator interface, starting with the Puritan Bennett 980, with live-adjustable controls for FiO2, PEEP, tidal volume, respiratory rate, inspiratory time, trigger sensitivity, and more. Every setting change drives a continuously running patient physiology engine that updates SpO2, heart rate, blood pressure, EtCO2, ABGs, and airway pressures over a realistic timescale, rendered through live Pressure-Time, Flow-Time, and Volume-Time waveforms. The sandbox mode lets students pick a disease state, adjust anything, and control simulation speed to see cause and effect play out exactly like it would on a real patient, with no correct-answer popups breaking the experience. The architecture is built so additional ventilator models, like the Hamilton C6 shown here, can be added as new control skins on top of the same shared simulation core.",
+    tags: ["React", "TypeScript", "Vite", "Medical Simulation", "Physiology Engine"],
+    year: "2026",
+    color: "#0ea5e9",
+    image: "/projects/VentSimlogo.webp",
+    gallery: [
+      "/projects/ventsim-1.webp",
+      "/projects/ventsim-2.webp",
+      "/projects/ventsim-3.webp",
+    ],
+    liveUrl: "https://vent-sim-olive.vercel.app/",
+    githubUrl: "",
+    wideGallery: true,
   },
 ];

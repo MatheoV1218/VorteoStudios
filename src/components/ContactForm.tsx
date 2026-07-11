@@ -37,7 +37,7 @@ export default function ContactForm() {
         setSent(true)
         setForm({ name: '', email: '', projectType: '', message: '' })
       } else {
-        setError("Something went wrong sending your message. Please email me directly at vorteostudios@gmail.com.")
+        setError("Something went wrong sending your message. Please email us directly at vorteostudios@gmail.com.")
       }
     } catch {
       setError("Something went wrong sending your message. Please email me directly at vorteostudios@gmail.com.")
@@ -90,7 +90,7 @@ export default function ContactForm() {
         <form className="contact-form" onSubmit={handleSubmit}>
           {sent ? (
             <div className="submit-success">
-              ✓ Message received — I'll get back to you soon.
+              ✓ Message received — we'll get back to you soon.
             </div>
           ) : (
             <>
@@ -146,7 +146,7 @@ export default function ContactForm() {
               </div>
 
               <div className="form-field">
-                <label htmlFor="message">Tell me about your project</label>
+                <label htmlFor="message">Tell us about your project</label>
                 <textarea
                   id="message"
                   name="message"

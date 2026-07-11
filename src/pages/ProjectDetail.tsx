@@ -126,7 +126,7 @@ export default function ProjectDetail() {
           {(project.gallery || []).map((src, index) => (
             <div
               key={src}
-              className="gallery-item"
+              className={`gallery-item${project.wideGallery ? ' gallery-item-wide' : ''}`}
               style={{ background: project.color }}
             >
               <img

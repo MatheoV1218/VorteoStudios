@@ -18,7 +18,7 @@ const services = [
   },
   {
     name: "Website Redesigns",
-    desc: "I take outdated, cluttered, or slow websites and rebuild them into something polished, organized, and easier for customers to use.",
+    desc: "We take outdated, cluttered, or slow websites and rebuild them into something polished, organized, and easier for customers to use.",
     items: [
       "Better layout",
       "Stronger visuals",
@@ -53,7 +53,7 @@ const services = [
   },
   {
     name: "Launch Support",
-    desc: "I help get the site live, connect the domain, clean up final details, and make sure the finished product feels ready for real visitors.",
+    desc: "We help get the site live, connect the domain, clean up final details, and make sure the finished product feels ready for real visitors.",
     items: [
       "Vercel hosting",
       "Domain setup",
@@ -72,7 +72,7 @@ const processSteps = [
   {
     num: "02",
     title: "Plan the structure",
-    desc: "I map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts.",
+    desc: "We map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts.",
   },
   {
     num: "03",
@@ -82,12 +82,12 @@ const processSteps = [
   {
     num: "04",
     title: "Build the website",
-    desc: "I turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later.",
+    desc: "We turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later.",
   },
   {
     num: "05",
     title: "Launch and polish",
-    desc: "Before launch, I test the site across screen sizes, clean up small details, connect the important links, and help get it live.",
+    desc: "Before launch, we test the site across screen sizes, clean up small details, connect the important links, and help get it live.",
   },
 ];
 
@@ -144,7 +144,7 @@ export default function Home() {
           <div className="hero-left">
             <div className="hero-eyebrow">
               <span className="hero-eyebrow-pip" />
-              Matheo Villada — Web Developer &amp; Designer
+              VorTeo Studios — Web Design &amp; Development
             </div>
 
             <h1 className="hero-title">
@@ -169,7 +169,7 @@ export default function Home() {
                 </svg>
               </a>
               <a href="#work" className="btn-secondary">
-                View My Work
+                View Our Work
               </a>
             </div>
           </div>
@@ -200,7 +200,7 @@ export default function Home() {
       <section id="services" className="services-section">
         <div className="services-inner">
           <SectionTitle
-            eyebrow="What I Do"
+            eyebrow="What We Do"
             heading="Websites that help businesses look legit online"
             accentWord="look legit online"
           />
@@ -237,8 +237,9 @@ export default function Home() {
           >
             <div className="about-photo-wrap">
               <div className="about-photo-placeholder">
-                <div className="about-initials">MV</div>
-                <p>Add your photo here</p>
+                <div className="about-initials">V</div>
+                <strong className="about-wordmark">VorTeo Studios</strong>
+                <p>Web Design &amp; Development</p>
               </div>
             </div>
           </div>
@@ -247,24 +248,25 @@ export default function Home() {
             className="about-content"
             ref={aboutRef(1) as (el: HTMLDivElement | null) => void}
           >
-            <span className="about-eyebrow">About Me</span>
+            <span className="about-eyebrow">About VorTeo</span>
 
             <h2>
-              Hi, I'm <span>Matheo.</span>
+              We build <span>websites that work.</span>
             </h2>
 
             <p>
-              I'm a developer who enjoys building digital experiences that feel
-              intentional from the first interaction. I pay close attention to
-              the details that shape how people experience a product, from
-              visual design to performance and usability.
+              VorTeo Studios is a web design and development studio focused on
+              building digital experiences that feel intentional from the
+              first interaction. We pay close attention to the details that
+              shape how people experience a product, from visual design to
+              performance and usability.
             </p>
 
             <p>
-              Every project is an opportunity to solve a different problem, and
-              I enjoy combining thoughtful design with clean engineering to
-              create websites and applications that are both polished and
-              practical.
+              Every project is an opportunity to solve a different problem for
+              a different business, and we combine thoughtful design with
+              clean engineering to create websites and applications that are
+              both polished and practical.
             </p>
 
             <div className="about-highlights">
@@ -275,7 +277,7 @@ export default function Home() {
                 <strong>⚡</strong>Performance • UX • Modern Web Apps
               </div>
               <div>
-                <strong>🚀</strong>Open to freelance & collaborations
+                <strong>🚀</strong>Currently accepting new projects
               </div>
             </div>
           </div>
@@ -289,7 +291,7 @@ export default function Home() {
             eyebrow="How It Works"
             heading="A clear path from idea to launch"
             accentWord="idea to launch"
-            sub="Every project is different, so I keep the steps simple and flexible."
+            sub="Every project is different, so we keep the steps simple and flexible."
           />
           <div className="process-steps">
             {processSteps.map((step, i) => (

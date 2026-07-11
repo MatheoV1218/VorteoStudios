@@ -293,6 +293,18 @@
   object-fit: cover;
 }
 
+/* Wide UI-screenshot gallery images (e.g. dashboard captures) crop too
+   aggressively at the default box height, so shorten the box instead. */
+.gallery-item-wide {
+  min-height: 176px;
+}
+
+@media (max-width: 900px) {
+  .gallery-item-wide {
+    min-height: 220px;
+  }
+}
+
 .gallery-item span {
   position: absolute;
   left: 14px;
