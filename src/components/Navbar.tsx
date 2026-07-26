@@ -20,9 +20,13 @@ export default function Navbar() {
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <a href="/#hero" className="nav-logo" onClick={() => setMenuOpen(false)}>
-        <div className="logo-mark">V</div>
-        <span className="logo-text">Vor<span>Teo</span></span>
+      <a
+        href="/#hero"
+        className="nav-logo"
+        aria-label="Vorteo Studios — Home"
+        onClick={() => setMenuOpen(false)}
+      >
+        <img src="/logo-mark.webp" alt="" className="logo-mark-img" />
       </a>
 
       <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>

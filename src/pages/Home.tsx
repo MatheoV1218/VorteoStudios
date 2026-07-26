@@ -144,7 +144,7 @@ export default function Home() {
           <div className="hero-left">
             <div className="hero-eyebrow">
               <span className="hero-eyebrow-pip" />
-              VorTeo Studios — Web Design &amp; Development
+              Vorteo Studios — Web Design &amp; Development
             </div>
 
             <h1 className="hero-title">
@@ -238,7 +238,7 @@ export default function Home() {
             <div className="about-photo-wrap">
               <div className="about-photo-placeholder">
                 <div className="about-initials">V</div>
-                <strong className="about-wordmark">VorTeo Studios</strong>
+                <strong className="about-wordmark">Vorteo Studios</strong>
                 <p>Web Design &amp; Development</p>
               </div>
             </div>
@@ -248,14 +248,14 @@ export default function Home() {
             className="about-content"
             ref={aboutRef(1) as (el: HTMLDivElement | null) => void}
           >
-            <span className="about-eyebrow">About VorTeo</span>
+            <span className="about-eyebrow">About Vorteo</span>
 
             <h2>
               We build <span>websites that work.</span>
             </h2>
 
             <p>
-              VorTeo Studios is a web design and development studio focused on
+              Vorteo Studios is a web design and development studio focused on
               building digital experiences that feel intentional from the
               first interaction. We pay close attention to the details that
               shape how people experience a product, from visual design to

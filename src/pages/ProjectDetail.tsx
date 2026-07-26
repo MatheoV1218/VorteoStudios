@@ -74,7 +74,7 @@ export default function ProjectDetail() {
           <div className="detail-cover" style={{ background: project.color }}>
             <img
               src={project.image}
-              alt={`${project.title} website design and development project by VorTeo Studios`}
+              alt={`${project.title} website design and development project by Vorteo Studios`}
               onError={(e) => {
                 e.currentTarget.style.display = "none";
               }}
@@ -131,7 +131,7 @@ export default function ProjectDetail() {
             >
               <img
                 src={src}
-                alt={`${project.title} project screenshot ${index + 1} by VorTeo Studios`}
+                alt={`${project.title} project screenshot ${index + 1} by Vorteo Studios`}
                 loading="lazy"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";

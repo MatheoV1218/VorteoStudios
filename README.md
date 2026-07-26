@@ -1,6 +1,6 @@
-# VorTeo Studios
+# Vorteo Studios
 
-Portfolio and marketing site for VorTeo Studios — a web design and development studio based in White Plains, NY, building websites for small businesses, startups, gyms, creators, and service brands.
+Portfolio and marketing site for Vorteo Studios — a web design and development studio based in White Plains, NY, building websites for small businesses, startups, gyms, creators, and service brands.
 
 Live site: [vorteostudios.com](https://www.vorteostudios.com)
 

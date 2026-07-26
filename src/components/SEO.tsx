@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom'
 import { projects } from '../data/projects'
 
 const SITE_URL = 'https://www.vorteostudios.com'
-const SITE_NAME = 'VorTeo Studios'
-const DEFAULT_IMAGE = `${SITE_URL}/VorTeo%20logo.png`
+const SITE_NAME = 'Vorteo Studios'
+const DEFAULT_IMAGE = `${SITE_URL}/logo-og.webp`
 
 function setMeta(name: string, content: string, property = false) {
   const selector = property ? `meta[property="${name}"]` : `meta[name="${name}"]`
@@ -56,14 +56,14 @@ export default function SEO() {
 
     const title = isKnownRoute
       ? project
-        ? `${project.title} Case Study | VorTeo Studios`
-        : 'VorTeo Studios | Web Design & Development in White Plains, NY'
-      : 'Page Not Found | VorTeo Studios'
+        ? `${project.title} Case Study | Vorteo Studios`
+        : 'Vorteo Studios | Web Design & Development in White Plains, NY'
+      : 'Page Not Found | Vorteo Studios'
 
     const description = isKnownRoute
       ? project
-        ? `${project.description} Built by VorTeo Studios, a web design and development studio based in White Plains, NY.`
-        : 'VorTeo Studios builds clean, responsive websites and web apps for small businesses, creators, gyms, restaurants, and service brands in White Plains and Westchester, NY.'
+        ? `${project.description} Built by Vorteo Studios, a web design and development studio based in White Plains, NY.`
+        : 'Vorteo Studios builds clean, responsive websites and web apps for small businesses, creators, gyms, restaurants, and service brands in White Plains and Westchester, NY.'
       : 'The page you are looking for does not exist.'
 
     const canonicalUrl = `${SITE_URL}${path === '/' ? '/' : path}`
@@ -81,7 +81,7 @@ export default function SEO() {
     setMeta('og:description', description, true)
     setMeta('og:url', canonicalUrl, true)
     setMeta('og:image', image, true)
-    setMeta('og:image:alt', project ? `${project.title} project preview` : 'VorTeo Studios logo', true)
+    setMeta('og:image:alt', project ? `${project.title} project preview` : 'Vorteo Studios logo', true)
 
     setMeta('twitter:card', 'summary_large_image')
     setMeta('twitter:title', title)
@@ -96,7 +96,7 @@ export default function SEO() {
         {
           '@type': 'LocalBusiness',
           '@id': `${SITE_URL}/#business`,
-          name: 'VorTeo Studios',
+          name: 'Vorteo Studios',
           url: `${SITE_URL}/`,
           image: DEFAULT_IMAGE,
           logo: DEFAULT_IMAGE,
@@ -116,7 +116,7 @@ export default function SEO() {
             'United States',
           ],
           description:
-            'VorTeo Studios provides web design and web development for small businesses, creators, gyms, restaurants, startups, and service brands.',
+            'Vorteo Studios provides web design and web development for small businesses, creators, gyms, restaurants, startups, and service brands.',
           sameAs: [
             'https://www.linkedin.com/in/matheo-villada/',
             'https://github.com/MatheoV1218',
@@ -170,7 +170,7 @@ export default function SEO() {
           : {
               '@type': 'WebPage',
               '@id': `${SITE_URL}/#home`,
-              name: 'VorTeo Studios | Web Design & Development in White Plains, NY',
+              name: 'Vorteo Studios | Web Design & Development in White Plains, NY',
               url: `${SITE_URL}/`,
               description,
               isPartOf: { '@id': `${SITE_URL}/#website` },

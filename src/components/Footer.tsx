@@ -6,8 +6,8 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-inner">
         <div>
-          <div className="footer-logo">Vor<span>Teo</span></div>
-          <p className="footer-copy">© {new Date().getFullYear()} VorTeo Studios — Matheo Villada. All rights reserved.</p>
+          <div className="footer-logo">Vor<span>teo</span></div>
+          <p className="footer-copy">© {new Date().getFullYear()} Vorteo Studios — Matheo Villada. All rights reserved.</p>
         </div>
         <div className="footer-links">
           <a href="https://www.linkedin.com/in/matheo-villada/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
