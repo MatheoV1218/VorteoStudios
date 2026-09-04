@@ -37,7 +37,7 @@ export default function ProjectSpiral({ projects }: ProjectSpiralProps) {
 
       <div className="projects-embla" ref={emblaRef}>
         <div className="projects-carousel">
-          {projects.map(project => (
+          {projects.map((project, index) => (
             <Link
               key={project.id}
               to={`/projects/${project.slug}`}
@@ -51,7 +51,8 @@ export default function ProjectSpiral({ projects }: ProjectSpiralProps) {
                 <img
                   src={project.image}
                   alt={project.title}
-                  loading="lazy"
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
                   draggable={false}
                   onError={e => {
                     e.currentTarget.style.display = 'none'
