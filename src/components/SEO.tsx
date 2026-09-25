@@ -1,183 +1,62 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { projects } from '../data/projects'
+import { absUrl, getMeta } from '../lib/seo'
 
-const SITE_URL = 'https://www.vorteostudios.com'
-const SITE_NAME = 'Vorteo Studios'
-const DEFAULT_IMAGE = `${SITE_URL}/logo-og.webp`
+// Each route's HTML is prerendered with the right <head> at build time.
+// This keeps the tags in sync during client-side navigation.
 
-function setMeta(name: string, content: string, property = false) {
-  const selector = property ? `meta[property="${name}"]` : `meta[name="${name}"]`
-  let tag = document.head.querySelector<HTMLMetaElement>(selector)
-
+function setMeta(key: string, content: string, attr: 'name' | 'property' = 'name') {
+  let tag = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`)
   if (!tag) {
     tag = document.createElement('meta')
-    if (property) tag.setAttribute('property', name)
-    else tag.setAttribute('name', name)
+    tag.setAttribute(attr, key)
     document.head.appendChild(tag)
   }
-
   tag.setAttribute('content', content)
 }
 
-function setLink(rel: string, href: string) {
-  let tag = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`)
-
-  if (!tag) {
-    tag = document.createElement('link')
-    tag.setAttribute('rel', rel)
-    document.head.appendChild(tag)
-  }
-
-  tag.setAttribute('href', href)
-}
-
-function setJsonLd(id: string, data: object) {
-  let script = document.getElementById(id) as HTMLScriptElement | null
-
-  if (!script) {
-    script = document.createElement('script')
-    script.id = id
-    script.type = 'application/ld+json'
-    document.head.appendChild(script)
-  }
-
-  script.textContent = JSON.stringify(data)
-}
-
 export default function SEO() {
-  const location = useLocation()
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    const path = location.pathname
-    const projectSlug = path.startsWith('/projects/') ? path.replace('/projects/', '') : null
-    const project = projectSlug ? projects.find(item => item.slug === projectSlug) : null
-    const isKnownRoute = path === '/' || (projectSlug !== null && project !== null)
+    const meta = getMeta(pathname)
+    const url = absUrl(meta.path)
 
-    const title = isKnownRoute
-      ? project
-        ? `${project.title} Case Study | Vorteo Studios`
-        : 'Vorteo Studios | Web Design & Development in White Plains, NY'
-      : 'Page Not Found | Vorteo Studios'
+    document.title = meta.title
+    setMeta('description', meta.description)
+    setMeta('robots', meta.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large')
+    setMeta('og:type', meta.type, 'property')
+    setMeta('og:title', meta.title, 'property')
+    setMeta('og:description', meta.description, 'property')
+    setMeta('og:url', url, 'property')
+    setMeta('og:image', meta.image, 'property')
+    setMeta('og:image:alt', meta.imageAlt, 'property')
+    setMeta('twitter:title', meta.title)
+    setMeta('twitter:description', meta.description)
+    setMeta('twitter:image', meta.image)
+    setMeta('twitter:image:alt', meta.imageAlt)
 
-    const description = isKnownRoute
-      ? project
-        ? `${project.description} Built by Vorteo Studios, a web design and development studio based in White Plains, NY.`
-        : 'Vorteo Studios builds clean, responsive websites and web apps for small businesses, creators, gyms, restaurants, and service brands in White Plains and Westchester, NY.'
-      : 'The page you are looking for does not exist.'
+    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+    if (meta.noindex) {
+      canonical?.remove()
+    } else {
+      if (!canonical) {
+        canonical = document.createElement('link')
+        canonical.rel = 'canonical'
+        document.head.appendChild(canonical)
+      }
+      canonical.href = url
+    }
 
-    const canonicalUrl = `${SITE_URL}${path === '/' ? '/' : path}`
-    const image = project?.image ? `${SITE_URL}${project.image}` : DEFAULT_IMAGE
-
-    document.title = title
-
-    setMeta('description', description)
-    setMeta('robots', isKnownRoute ? 'index, follow, max-image-preview:large' : 'noindex, follow')
-    setMeta('theme-color', '#4f46e5')
-
-    setMeta('og:type', project ? 'article' : 'website', true)
-    setMeta('og:site_name', SITE_NAME, true)
-    setMeta('og:title', title, true)
-    setMeta('og:description', description, true)
-    setMeta('og:url', canonicalUrl, true)
-    setMeta('og:image', image, true)
-    setMeta('og:image:alt', project ? `${project.title} project preview` : 'Vorteo Studios logo', true)
-
-    setMeta('twitter:card', 'summary_large_image')
-    setMeta('twitter:title', title)
-    setMeta('twitter:description', description)
-    setMeta('twitter:image', image)
-
-    setLink('canonical', canonicalUrl)
-
-    setJsonLd('vorteo-schema', {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'LocalBusiness',
-          '@id': `${SITE_URL}/#business`,
-          name: 'Vorteo Studios',
-          url: `${SITE_URL}/`,
-          image: DEFAULT_IMAGE,
-          logo: DEFAULT_IMAGE,
-          email: 'vorteostudios@gmail.com',
-          priceRange: '$$',
-          founder: { '@id': `${SITE_URL}/#person` },
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: 'White Plains',
-            addressRegion: 'NY',
-            addressCountry: 'US',
-          },
-          areaServed: [
-            'White Plains, NY',
-            'Westchester County, NY',
-            'New York',
-            'United States',
-          ],
-          description:
-            'Vorteo Studios provides web design and web development for small businesses, creators, gyms, restaurants, startups, and service brands.',
-          sameAs: [
-            'https://www.linkedin.com/in/matheo-villada/',
-            'https://github.com/MatheoV1218',
-          ],
-          makesOffer: [
-            {
-              '@type': 'Offer',
-              itemOffered: { '@type': 'Service', name: 'Website Design and Development' },
-            },
-            {
-              '@type': 'Offer',
-              itemOffered: { '@type': 'Service', name: 'Website Redesign' },
-            },
-            {
-              '@type': 'Offer',
-              itemOffered: { '@type': 'Service', name: 'React Web App Development' },
-            },
-          ],
-        },
-        {
-          '@type': 'Person',
-          '@id': `${SITE_URL}/#person`,
-          name: 'Matheo Villada',
-          jobTitle: 'Web Developer and Designer',
-          url: `${SITE_URL}/`,
-          sameAs: [
-            'https://www.linkedin.com/in/matheo-villada/',
-            'https://github.com/MatheoV1218',
-          ],
-        },
-        {
-          '@type': 'WebSite',
-          '@id': `${SITE_URL}/#website`,
-          name: SITE_NAME,
-          url: `${SITE_URL}/`,
-          publisher: { '@id': `${SITE_URL}/#business` },
-        },
-        project
-          ? {
-              '@type': 'CreativeWork',
-              '@id': `${canonicalUrl}#project`,
-              name: project.title,
-              url: canonicalUrl,
-              image,
-              description: project.longDescription,
-              creator: { '@id': `${SITE_URL}/#business` },
-              dateCreated: project.year,
-              keywords: project.tags.join(', '),
-              workExample: project.liveUrl || undefined,
-            }
-          : {
-              '@type': 'WebPage',
-              '@id': `${SITE_URL}/#home`,
-              name: 'Vorteo Studios | Web Design & Development in White Plains, NY',
-              url: `${SITE_URL}/`,
-              description,
-              isPartOf: { '@id': `${SITE_URL}/#website` },
-            },
-      ].filter(Boolean),
-    })
-  }, [location.pathname])
+    let script = document.getElementById('vorteo-schema')
+    if (!script) {
+      script = document.createElement('script')
+      script.id = 'vorteo-schema'
+      script.setAttribute('type', 'application/ld+json')
+      document.head.appendChild(script)
+    }
+    script.textContent = JSON.stringify(meta.jsonLd)
+  }, [pathname])
 
   return null
 }

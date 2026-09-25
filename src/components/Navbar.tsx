@@ -1,58 +1,106 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
+import Logo from './Logo'
+import { NAV_LINKS, SITE } from '../data/site'
 import './Navbar.css'
-
-const navLinks = [
-  { label: 'Work', href: '/#work' },
-  { label: 'Services', href: '/#services' },
-  { label: 'About', href: '/#about' },
-  { label: 'Process', href: '/#process' },
-]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32)
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Close the menu whenever the route changes.
+  const [lastPath, setLastPath] = useState(pathname)
+  if (pathname !== lastPath) {
+    setLastPath(pathname)
+    setMenuOpen(false)
+  }
+
+  useEffect(() => {
+    document.body.classList.toggle('menu-open', menuOpen)
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMenuOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
+
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <a
-        href="/#hero"
-        className="nav-logo"
-        aria-label="Vorteo Studios — Home"
-        onClick={() => setMenuOpen(false)}
-      >
-        <img src="/logo-mark.webp" alt="" className="logo-mark-img" />
-      </a>
+    <header className={`navbar ${scrolled || menuOpen ? 'is-scrolled' : ''} ${menuOpen ? 'is-open' : ''}`}>
+      <div className="navbar-inner container">
+        <Link to="/" className="nav-logo" aria-label="Vorteo Studios home">
+          <Logo />
+        </Link>
 
-      <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-        {navLinks.map(link => (
-          <li key={link.href}>
-            <a href={link.href} onClick={() => setMenuOpen(false)}>{link.label}</a>
-          </li>
-        ))}
-        <li className="mobile-cta">
-          <a href="/#contact" onClick={() => setMenuOpen(false)}>
-            <button className="nav-cta">Let's Talk</button>
+        <nav className="nav-desktop" aria-label="Main">
+          <ul>
+            {NAV_LINKS.map(link => (
+              <li key={link.to}>
+                <NavLink to={link.to} className={({ isActive }) => (isActive ? 'is-active' : undefined)}>
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <Link to="/contact" className="btn btn-primary btn-sm nav-cta">
+          Start a project
+          <FiArrowRight aria-hidden="true" />
+        </Link>
+
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          onClick={() => setMenuOpen(open => !open)}
+        >
+          <span />
+          <span />
+        </button>
+      </div>
+
+      <div id="mobile-menu" className="mobile-menu" inert={!menuOpen}>
+        <nav aria-label="Mobile">
+          <ul>
+            {[{ to: '/', label: 'Home' }, ...NAV_LINKS, { to: '/contact', label: 'Contact' }].map((link, i) => (
+              <li key={link.to} style={{ '--i': i } as CSSProperties}>
+                <NavLink to={link.to} end={link.to === '/'} className={({ isActive }) => (isActive ? 'is-active' : undefined)}>
+                  <span className="mobile-menu-num">0{i + 1}</span>
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="mobile-menu-foot">
+          <Link to="/contact" className="btn btn-primary">
+            Start a project
+            <FiArrowRight aria-hidden="true" />
+          </Link>
+          <a href={`mailto:${SITE.email}`} className="mobile-menu-mail">
+            {SITE.email}
           </a>
-        </li>
-      </ul>
-
-      <a href="/#contact" className="desktop-cta">
-        <button className="nav-cta">Let's Talk</button>
-      </a>
-
-      <button
-        className={`nav-mobile-toggle ${menuOpen ? 'open' : ''}`}
-        onClick={() => setMenuOpen(p => !p)}
-        aria-label="Toggle menu"
-      >
-        <span /><span /><span />
-      </button>
-    </nav>
+          <div className="mobile-menu-social">
+            <a href={SITE.linkedin} target="_blank" rel="noreferrer">
+              LinkedIn <FiArrowUpRight aria-hidden="true" />
+            </a>
+            <a href={SITE.github} target="_blank" rel="noreferrer">
+              GitHub <FiArrowUpRight aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
   )
 }

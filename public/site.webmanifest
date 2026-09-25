@@ -1,0 +1,13 @@
+{
+  "name": "Vorteo Studios",
+  "short_name": "Vorteo",
+  "description": "Web design and development studio in White Plains, NY.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon.png", "sizes": "64x64", "type": "image/png" }
+  ]
+}

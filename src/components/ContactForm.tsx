@@ -1,25 +1,25 @@
-import { useState } from 'react'
-import SectionTitle from './SectionTitle'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { FiArrowRight, FiCheck } from 'react-icons/fi'
+import { SITE } from '../data/site'
 import './ContactForm.css'
+
+const projectTypes = ['New website', 'Website redesign', 'E-commerce store', 'Web app', 'Landing page', 'Not sure yet']
+const budgets = ['Under $2,500', '$2,500 – $5,000', '$5,000 – $10,000', '$10,000+', 'Not sure yet']
+const timelines = ['As soon as possible', 'Within 1–2 months', 'In 3+ months', 'Just exploring']
+
+const empty = { name: '', email: '', company: '', projectType: '', budget: '', timeline: '', message: '' }
 
 export default function ContactForm() {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    projectType: '',
-    message: '',
-  })
+  const [form, setForm] = useState(empty)
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSending(true)
     setError('')
@@ -27,157 +27,124 @@ export default function ContactForm() {
     const data = new FormData(e.currentTarget)
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/vorteostudios@gmail.com', {
+      const response = await fetch(`https://formsubmit.co/ajax/${SITE.email}`, {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: data,
       })
 
-      if (response.ok) {
-        setSent(true)
-        setForm({ name: '', email: '', projectType: '', message: '' })
-      } else {
-        setError("Something went wrong sending your message. Please email us directly at vorteostudios@gmail.com.")
-      }
+      if (!response.ok) throw new Error('Request failed')
+      setSent(true)
+      setForm(empty)
     } catch {
-      setError("Something went wrong sending your message. Please email me directly at vorteostudios@gmail.com.")
+      setError(`Something went wrong sending your message. Please email us directly at ${SITE.email}.`)
     } finally {
       setSending(false)
     }
   }
 
-  return (
-    <section className="contact-section" id="contact">
-      <div className="contact-inner">
-        <div className="contact-info">
-          <SectionTitle
-            eyebrow="Get In Touch"
-            heading="Have a project in mind? Let's build it."
-            accentWord="Let's build it."
-          />
-
-          <div className="contact-detail">
-            <div className="contact-item">
-              <span className="contact-item-label">Email</span>
-              <span className="contact-item-value">
-                <a href="mailto:vorteostudios@gmail.com">
-                  vorteostudios@gmail.com
-                </a>
-              </span>
-            </div>
-
-            <div className="contact-item">
-              <span className="contact-item-label">Based In</span>
-              <span className="contact-item-value">
-                White Plains, NY — Remote Friendly
-              </span>
-            </div>
-
-            <div className="contact-item">
-              <span className="contact-item-label">Best Fit</span>
-              <span className="contact-item-value">
-                Small businesses, startups, gyms, creators, and service brands
-              </span>
-            </div>
-          </div>
-
-          <div className="contact-availability">
-            <div className="avail-dot" />
-            <span>Currently accepting new projects</span>
-          </div>
-        </div>
-
-        <form className="contact-form" onSubmit={handleSubmit}>
-          {sent ? (
-            <div className="submit-success">
-              ✓ Message received — we'll get back to you soon.
-            </div>
-          ) : (
-            <>
-              <input type="hidden" name="_subject" value="New Portfolio Inquiry" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_replyto" value={form.email} />
-
-              <div className="form-row">
-                <div className="form-field">
-                  <label htmlFor="name">Your Name</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Alex Rivera"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="alex@company.com"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="form-field">
-                <label htmlFor="projectType">Project Type</label>
-                <select
-                  id="projectType"
-                  name="projectType"
-                  value={form.projectType}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>Select one</option>
-                  <option>New website</option>
-                  <option>Website redesign</option>
-                  <option>Landing page</option>
-                  <option>React web app</option>
-                  <option>Not sure yet</option>
-                </select>
-              </div>
-
-              <div className="form-field">
-                <label htmlFor="message">Tell us about your project</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="What do you need built? What does your business do? What is the main goal of the website?"
-                  value={form.message}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <button type="submit" className={`form-submit ${sending ? 'sending' : ''}`}>
-                {sending ? 'Sending...' : 'Send Message'}
-
-                {!sending && (
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path
-                      d="M2 8h12M9 4l5 4-5 4"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                )}
-              </button>
-
-              {error && <div className="submit-error">{error}</div>}
-            </>
-          )}
-        </form>
+  if (sent) {
+    return (
+      <div className="contact-form submit-success" role="status">
+        <span className="submit-success-icon">
+          <FiCheck aria-hidden="true" />
+        </span>
+        <h2>Message received.</h2>
+        <p>Thanks for reaching out — we will read through your project details and get back to you soon.</p>
+        <button type="button" className="btn btn-ghost" onClick={() => setSent(false)}>
+          Send another message
+        </button>
       </div>
-    </section>
+    )
+  }
+
+  return (
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <input type="hidden" name="_subject" value="New Vorteo Studios project inquiry" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_replyto" value={form.email} />
+      <input type="text" name="_honey" className="sr-only" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+
+      <div className="form-row">
+        <div className="form-field">
+          <label htmlFor="name">Your name</label>
+          <input id="name" name="name" type="text" autoComplete="name" placeholder="Alex Rivera" value={form.name} onChange={handleChange} required />
+        </div>
+        <div className="form-field">
+          <label htmlFor="email">Email</label>
+          <input id="email" name="email" type="email" autoComplete="email" inputMode="email" placeholder="alex@company.com" value={form.email} onChange={handleChange} required />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-field">
+          <label htmlFor="company">
+            Business name <span className="form-optional">(optional)</span>
+          </label>
+          <input id="company" name="company" type="text" autoComplete="organization" placeholder="Rivera Fitness" value={form.company} onChange={handleChange} />
+        </div>
+        <div className="form-field">
+          <label htmlFor="projectType">Project type</label>
+          <select id="projectType" name="projectType" value={form.projectType} onChange={handleChange} required>
+            <option value="" disabled>
+              Select one
+            </option>
+            {projectTypes.map(t => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-field">
+          <label htmlFor="budget">
+            Budget <span className="form-optional">(optional)</span>
+          </label>
+          <select id="budget" name="budget" value={form.budget} onChange={handleChange}>
+            <option value="">Select a range</option>
+            {budgets.map(b => (
+              <option key={b}>{b}</option>
+            ))}
+          </select>
+        </div>
+        <div className="form-field">
+          <label htmlFor="timeline">
+            Timeline <span className="form-optional">(optional)</span>
+          </label>
+          <select id="timeline" name="timeline" value={form.timeline} onChange={handleChange}>
+            <option value="">Select one</option>
+            {timelines.map(t => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="form-field">
+        <label htmlFor="message">Tell us about your project</label>
+        <textarea
+          id="message"
+          name="message"
+          rows={6}
+          placeholder="What does your business do? What do you need built? What is the main goal of the website?"
+          value={form.message}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <button type="submit" className="btn btn-primary form-submit" disabled={sending}>
+        {sending ? 'Sending…' : 'Send message'}
+        {!sending && <FiArrowRight aria-hidden="true" />}
+      </button>
+
+      {error && (
+        <p className="submit-error" role="alert">
+          {error}
+        </p>
+      )}
+    </form>
   )
 }

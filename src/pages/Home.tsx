@@ -1,319 +1,204 @@
-import { useEffect, useRef } from "react";
-import SectionTitle from "../components/SectionTitle";
-import ContactForm from "../components/ContactForm";
-import ProjectSpiral from "../components/ProjectSpiral";
-import { projects } from "../data/projects";
-import "./Home.css";
-
-const services = [
-  {
-    name: "Modern Business Websites",
-    desc: "Clean, fast websites that make your business look trustworthy and professional the second someone lands on the page.",
-    items: [
-      "Landing pages",
-      "Full websites",
-      "Mobile-first layouts",
-      "Clear calls to action",
-    ],
-  },
-  {
-    name: "Website Redesigns",
-    desc: "We take outdated, cluttered, or slow websites and rebuild them into something polished, organized, and easier for customers to use.",
-    items: [
-      "Better layout",
-      "Stronger visuals",
-      "Cleaner content flow",
-      "Faster loading",
-    ],
-  },
-  {
-    name: "React Front-End Builds",
-    desc: "Custom React websites built with reusable components, organized code, smooth interactions, and room to grow over time.",
-    items: ["React", "TypeScript", "Vite", "Component structure"],
-  },
-  {
-    name: "Booking & Contact Flows",
-    desc: "Simple user flows that help visitors take action — booking a class, sending a message, or learning about a service.",
-    items: [
-      "Contact forms",
-      "Booking links",
-      "CTA sections",
-      "Lead-focused pages",
-    ],
-  },
-  {
-    name: "Responsive Design",
-    desc: "Every section is built to look good on phones, tablets, laptops, and desktops — because most customers check from their phone first.",
-    items: [
-      "Mobile menus",
-      "Flexible grids",
-      "Touch-friendly buttons",
-      "Clean spacing",
-    ],
-  },
-  {
-    name: "Launch Support",
-    desc: "We help get the site live, connect the domain, clean up final details, and make sure the finished product feels ready for real visitors.",
-    items: [
-      "Vercel hosting",
-      "Domain setup",
-      "Final testing",
-      "Basic SEO setup",
-    ],
-  },
-];
-
-const processSteps = [
-  {
-    num: "01",
-    title: "Understand the business",
-    desc: "We start by getting clear on the business, the audience, the goal of the website, and what the visitor should do next.",
-  },
-  {
-    num: "02",
-    title: "Plan the structure",
-    desc: "We map out the sections, pages, content flow, and main calls to action so the site has a purpose before the design starts.",
-  },
-  {
-    num: "03",
-    title: "Design the experience",
-    desc: "The visual direction comes together with colors, spacing, typography, layout, and a style that actually fits the brand.",
-  },
-  {
-    num: "04",
-    title: "Build the website",
-    desc: "We turn the design into a responsive React site with organized components, smooth CSS, and clean code that is easy to update later.",
-  },
-  {
-    num: "05",
-    title: "Launch and polish",
-    desc: "Before launch, we test the site across screen sizes, clean up small details, connect the important links, and help get it live.",
-  },
-];
+import type { CSSProperties } from 'react'
+import { Link } from 'react-router-dom'
+import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
+import SectionTitle from '../components/SectionTitle'
+import ProjectStack from '../components/ProjectStack'
+import { BrowserFrame } from '../components/Frames'
+import { featuredProjects, hostname, industries, projects } from '../data/projects'
+import { processSteps, services } from '../data/site'
+import { thumb } from '../lib/images'
+import './Home.css'
 
 const marqueeItems = [
-  "React",
-  "TypeScript",
-  "JavaScript",
-  "HTML",
-  "CSS",
-  "Vite",
-  "React Router",
-  "Supabase",
-  "Vercel",
-  "GitHub",
-  "Responsive Design",
-  "FormSubmit",
-  "SEO Basics",
-  "Component Design",
-];
+  'React',
+  'TypeScript',
+  'Vite',
+  'Supabase',
+  'Vercel',
+  'Responsive Design',
+  'Structured Data',
+  'E-commerce',
+  'Booking Flows',
+  'Admin Dashboards',
+  'Performance',
+  'Accessibility',
+]
 
-function useReveal() {
-  const refs = useRef<(HTMLElement | null)[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("visible");
-        }),
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
-    );
-    refs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  return (i: number) => (el: HTMLElement | null) => {
-    refs.current[i] = el;
-  };
-}
+const heroShots = featuredProjects.slice(0, 3)
 
 export default function Home() {
-  const serviceRef = useReveal();
-  const processRef = useReveal();
-  const aboutRef = useReveal();
-
   return (
     <>
       {/* ── HERO ── */}
-      <section className="hero" id="hero">
-        <div className="hero-blob hero-blob-1" />
-        <div className="hero-blob hero-blob-2" />
+      <section className="hero" aria-labelledby="hero-heading">
+        <div className="hero-bg" aria-hidden="true" />
 
-        <div className="hero-content">
-          <div className="hero-left">
-            <div className="hero-eyebrow">
-              <span className="hero-eyebrow-pip" />
-              Vorteo Studios — Web Design &amp; Development
-            </div>
+        <div className="container hero-grid">
+          <div className="hero-copy">
+            <p className="hero-badge">
+              <span className="hero-badge-dot" aria-hidden="true" />
+              Now booking new projects
+            </p>
 
-            <h1 className="hero-title">
-              Websites that feel
-              <br />
-              <span className="hl">clean, sharp,</span>
-              <br />
-              and built to grow.
+            <h1 id="hero-heading" className="display hero-title">
+              Websites that feel <span className="hero-hl">clean, sharp,</span> and built to grow.
             </h1>
 
-            <div className="hero-actions">
-              <a href="#contact" className="btn-primary">
-                Start a Project
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path
-                    d="M3 8h10M9 4l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
-              <a href="#work" className="btn-secondary">
-                View Our Work
-              </a>
-            </div>
-          </div>
-        </div>
+            <p className="hero-sub">
+              Vorteo Studios is a web design and development studio in White Plains, NY. We design and build custom
+              websites, online stores, and web apps for businesses that want to look sharp online — and turn visitors
+              into customers.
+            </p>
 
-        <div className="hero-scroll">
-          <div className="scroll-bar" />
-          <span className="scroll-txt">Scroll</span>
+            <div className="hero-actions">
+              <Link to="/contact" className="btn btn-primary">
+                Start a project
+                <FiArrowRight aria-hidden="true" />
+              </Link>
+              <Link to="/projects" className="btn btn-ghost">
+                See our work
+              </Link>
+            </div>
+
+            <dl className="hero-stats">
+              <div>
+                <dt>Projects shipped</dt>
+                <dd>{projects.length}</dd>
+              </div>
+              <div>
+                <dt>Industries</dt>
+                <dd>{industries.length}</dd>
+              </div>
+              <div>
+                <dt>Custom code</dt>
+                <dd>100%</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div className="hero-visual" aria-hidden="true">
+            {heroShots.map((p, i) => (
+              <div key={p.slug} className={`hero-shot hero-shot-${i + 1}`}>
+                <BrowserFrame url={p.liveUrl ? hostname(p.liveUrl) : undefined}>
+                  <img
+                    src={thumb(p.image)}
+                    alt=""
+                    width={800}
+                    height={500}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={i === 0 ? 'high' : 'auto'}
+                    decoding="async"
+                  />
+                </BrowserFrame>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── MARQUEE ── */}
-      <div className="marquee-section" aria-label="Tools and skills">
+      <div className="marquee" aria-hidden="true">
         <div className="marquee-track">
           {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <div key={`${item}-${i}`} className="marquee-item">
-              <span className="dot" />
+            <span key={`${item}-${i}`} className="marquee-item">
               {item}
-            </div>
+            </span>
           ))}
         </div>
       </div>
 
       {/* ── WORK ── */}
-      <ProjectSpiral projects={projects} />
+      <ProjectStack projects={featuredProjects} total={projects.length} />
 
       {/* ── SERVICES ── */}
-      <section id="services" className="services-section">
-        <div className="services-inner">
-          <SectionTitle
-            eyebrow="What We Do"
-            heading="Websites that help businesses look legit online"
-            accentWord="look legit online"
-          />
-          <div className="services-grid">
-            {services.map((service, i) => (
-              <article
-                key={service.name}
-                className="service-card"
-                ref={serviceRef(i) as (el: HTMLDivElement | null) => void}
-                style={{ transitionDelay: `${(i % 3) * 0.08}s` }}
+      <section className="section section-snow" aria-labelledby="services-heading">
+        <div className="container">
+          <div className="home-split-head">
+            <SectionTitle
+              id="services-heading"
+              eyebrow="What we do"
+              heading="Everything you need to look legit online"
+              accentWord="look legit online"
+            />
+            <Link to="/services" className="text-link home-head-link reveal">
+              All services <FiArrowUpRight aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="home-services">
+            {services.map((s, i) => (
+              <Link
+                key={s.slug}
+                to={`/services#${s.slug}`}
+                className="home-service reveal"
+                style={{ '--delay': `${(i % 3) * 0.08}s` } as CSSProperties}
               >
-                <div className="service-number">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <h3 className="service-name">{service.name}</h3>
-                <p className="service-desc">{service.desc}</p>
-                <ul className="service-list">
-                  {service.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </article>
+                <span className="home-service-num">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{s.name}</h3>
+                <p>{s.short}</p>
+                <span className="home-service-arrow" aria-hidden="true">
+                  <FiArrowUpRight />
+                </span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── ABOUT ── */}
-      <section id="about" className="about-section">
-        <div className="about-wrapper">
-          <div
-            className="about-visual"
-            ref={aboutRef(0) as (el: HTMLDivElement | null) => void}
-          >
-            <div className="about-photo-wrap">
-              <div className="about-photo-placeholder">
-                <div className="about-initials">V</div>
-                <strong className="about-wordmark">Vorteo Studios</strong>
-                <p>Web Design &amp; Development</p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="about-content"
-            ref={aboutRef(1) as (el: HTMLDivElement | null) => void}
-          >
-            <span className="about-eyebrow">About Vorteo</span>
-
-            <h2>
-              We build <span>websites that work.</span>
+      {/* ── ABOUT TEASER ── */}
+      <section className="section home-about" aria-labelledby="about-heading">
+        <div className="container home-about-grid">
+          <div className="reveal">
+            <p className="eyebrow">Why Vorteo</p>
+            <h2 id="about-heading" className="display home-about-title">
+              Small studio. <span className="accent">Serious craft.</span>
             </h2>
-
-            <p>
-              Vorteo Studios is a web design and development studio focused on
-              building digital experiences that feel intentional from the
-              first interaction. We pay close attention to the details that
-              shape how people experience a product, from visual design to
-              performance and usability.
-            </p>
-
-            <p>
-              Every project is an opportunity to solve a different problem for
-              a different business, and we combine thoughtful design with
-              clean engineering to create websites and applications that are
-              both polished and practical.
-            </p>
-
-            <div className="about-highlights">
-              <div>
-                <strong>📍</strong>White Plains, NY
-              </div>
-              <div>
-                <strong>⚡</strong>Performance • UX • Modern Web Apps
-              </div>
-              <div>
-                <strong>🚀</strong>Currently accepting new projects
-              </div>
-            </div>
           </div>
+          <div className="home-about-copy reveal" style={{ '--delay': '0.1s' } as CSSProperties}>
+            <p>
+              Every site we ship is designed from scratch and hand-coded — no templates, no page builders, no bloat. You
+              work directly with the person designing and building your site, from the first call to launch day.
+            </p>
+            <p>
+              We have built for gyms, restaurants, home care providers, boutique retailers, startups, and medical
+              educators. Different industries, same standard: fast, mobile-first, and easy for customers to use.
+            </p>
+            <Link to="/about" className="text-link">
+              More about the studio <FiArrowUpRight aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+
+        <div className="container">
+          <ul className="home-industries reveal" aria-label="Industries we have built for">
+            {industries.map(ind => (
+              <li key={ind}>{ind}</li>
+            ))}
+          </ul>
         </div>
       </section>
 
       {/* ── PROCESS ── */}
-      <section id="process" className="process-section">
-        <div className="process-inner">
+      <section className="section section-snow" aria-labelledby="process-heading">
+        <div className="container">
           <SectionTitle
-            eyebrow="How It Works"
+            id="process-heading"
+            eyebrow="How it works"
             heading="A clear path from idea to launch"
             accentWord="idea to launch"
-            sub="Every project is different, so we keep the steps simple and flexible."
+            sub="Every project is different, so we keep the steps simple, collaborative, and flexible."
           />
-          <div className="process-steps">
+          <ol className="home-process">
             {processSteps.map((step, i) => (
-              <article
-                key={step.num}
-                className="process-step"
-                ref={processRef(i) as (el: HTMLDivElement | null) => void}
-                style={{ transitionDelay: `${i * 0.07}s` }}
-              >
-                <div className="step-number">{step.num}</div>
-                <div className="step-content">
-                  <h3 className="step-title">{step.title}</h3>
-                  <p className="step-desc">{step.desc}</p>
-                </div>
-              </article>
+              <li key={step.num} className="home-step reveal" style={{ '--delay': `${i * 0.07}s` } as CSSProperties}>
+                <span className="home-step-num">{step.num}</span>
+                <h3>{step.title}</h3>
+                <p>{step.desc}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
-
-      {/* ── CONTACT ── */}
-      <ContactForm />
     </>
-  );
+  )
 }

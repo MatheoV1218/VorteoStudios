@@ -1,15 +1,23 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { StrictMode } from 'react'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
-import App from './App.tsx'
 import './index.css'
+import App from './App'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+const root = document.getElementById('root')!
+
+const app = (
+  <StrictMode>
     <BrowserRouter>
       <App />
-      <Analytics />
     </BrowserRouter>
-  </React.StrictMode>,
+  </StrictMode>
 )
+
+// Production pages are prerendered to static HTML (scripts/prerender.mjs),
+// so hydrate them; the dev server serves an empty root, so render fresh.
+if (root.hasChildNodes()) hydrateRoot(root, app)
+else createRoot(root).render(app)
+
+createRoot(document.getElementById('analytics')!).render(<Analytics />)

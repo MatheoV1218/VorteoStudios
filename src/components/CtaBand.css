@@ -1,0 +1,68 @@
+.cta-band {
+  padding: 0 0 96px;
+  background: var(--white);
+}
+
+.cta-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(48px, 7vw, 96px) clamp(24px, 6vw, 88px);
+  border-radius: 32px;
+  background: var(--night);
+  color: var(--white);
+  text-align: center;
+}
+
+.cta-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 80% at 85% 0%, rgba(99, 102, 241, 0.45), transparent 60%),
+    radial-gradient(50% 70% at 0% 100%, rgba(255, 92, 58, 0.25), transparent 60%);
+}
+
+.cta-card .eyebrow {
+  color: var(--indigo-light);
+  justify-content: center;
+}
+
+.cta-card h2 {
+  margin: 18px auto 18px;
+  max-width: 760px;
+  font-size: clamp(2.3rem, 6vw, 4.6rem);
+}
+
+.cta-sub {
+  max-width: 520px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.75;
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+@media (max-width: 480px) {
+  .cta-band {
+    padding-bottom: 64px;
+  }
+
+  .cta-card {
+    border-radius: 24px;
+  }
+
+  .cta-actions .btn {
+    width: 100%;
+  }
+
+  .cta-actions .btn-outline-light {
+    font-size: 0.84rem;
+  }
+}

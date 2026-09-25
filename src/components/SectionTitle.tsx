@@ -6,25 +6,28 @@ interface SectionTitleProps {
   accentWord?: string
   sub?: string
   centered?: boolean
+  id?: string
 }
 
-export default function SectionTitle({ eyebrow, heading, accentWord, sub, centered }: SectionTitleProps) {
+export default function SectionTitle({ eyebrow, heading, accentWord, sub, centered, id }: SectionTitleProps) {
   const renderHeading = () => {
     if (!accentWord) return heading
-    const parts = heading.split(accentWord)
+    const [before, after] = heading.split(accentWord)
     return (
       <>
-        {parts[0]}
+        {before}
         <span className="accent">{accentWord}</span>
-        {parts[1]}
+        {after}
       </>
     )
   }
 
   return (
-    <div className={`section-title-wrap ${centered ? 'centered' : ''}`}>
+    <div className={`section-title-wrap reveal ${centered ? 'centered' : ''}`}>
       <p className="section-eyebrow">{eyebrow}</p>
-      <h2 className="section-heading">{renderHeading()}</h2>
+      <h2 id={id} className="section-heading">
+        {renderHeading()}
+      </h2>
       {sub && <p className="section-sub">{sub}</p>}
     </div>
   )
