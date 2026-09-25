@@ -44,7 +44,7 @@
       ]
     },
     {
-      "source": "/(.*)\.(webp|jpg|png)",
+      "source": "/(.*)\\.(webp|jpg|png)",
       "headers": [
         {
           "key": "Cache-Control",
