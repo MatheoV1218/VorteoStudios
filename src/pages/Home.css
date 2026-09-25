@@ -106,6 +106,14 @@
   }
 }
 
+/* On phones the draw-in competes with font loading and hydration and can
+   look choppy, so the underline is simply there from the start. */
+@media (hover: none), (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .hero-hl::after {
+    animation: none;
+  }
+}
+
 .hero-sub {
   margin-top: 28px;
   max-width: 540px;
@@ -255,6 +263,15 @@
   margin-left: 20px;
   border-radius: 50%;
   background: var(--coral);
+}
+
+/* The marquee is slow, linear, and non-flashing, so it keeps running (just
+   slower) when the device asks for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-duration: 60s !important;
+    animation-iteration-count: infinite !important;
+  }
 }
 
 @keyframes marquee {
